@@ -2,24 +2,30 @@ import './App.css'
 // Import router
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 // Import composants pages
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Account from './pages/Account';
+import Accueil from './pages/Accueil';
+import Inscription from './pages/Inscription';
+import Compte from './pages/Compte';
+import Convertisseur from './pages/Convertisseur';
+import Connexion from './pages/Connexion';
 
 function App() {
   return (
     <BrowserRouter>
 
       <nav>
-            <Link to="/">Home</Link><br/>
-            <Link to="/login">Login</Link><br/>
-            <Link to="/account">Account</Link><br/>
+            <Link to="/">Accueil</Link><br/>
+            <Link to="/convertisseur">Convertisseur</Link><br/>
+            <Link to="/inscription">Inscription</Link><br/>
+            <Link to="/connexion">Connexion</Link><br/>
+            <Link to="/compte">Compte</Link><br/>
       </nav>
 
       <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/account" element={<Account/>}/>
+        <Route path="/" element={<Accueil/>}/>
+        <Route path="/convertisseur" element={<Convertisseur/>}/>
+        <Route path="/inscription" element={<Inscription/>}/>
+        <Route path="/connexion" element={<Connexion/>}/>
+        <Route path="/compte" element={<Compte/>}/>
       </Routes>
 
     </BrowserRouter>

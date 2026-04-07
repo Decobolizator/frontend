@@ -1,4 +1,4 @@
-function Login() {
+function Connexion() {
     return (
         <>
             <h1>Page de connexion</h1>
@@ -6,4 +6,4 @@ function Login() {
     )
 }
 
-export default Login
+export default Connexion

@@ -1,4 +1,4 @@
-function Account() {
+function Compte() {
     return (
         <>
             <h1>Page de compte de l'utilisateur</h1>
@@ -6,4 +6,4 @@ function Account() {
     )
 }
 
-export default Account
+export default Compte

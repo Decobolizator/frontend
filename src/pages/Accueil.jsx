@@ -1,7 +1,7 @@
 import { useEffect, React } from "react"
 import instance from "../services/HttpClient"
 
-function Home() {
+function Accueil() {
   useEffect(() => {
     async function fetchData() {
       try {
@@ -17,9 +17,9 @@ function Home() {
 
     return (
         <>
-            <h1>Page de ScanCod</h1>
+            <h1>Page d'accueil et tuto</h1>
         </>
     )
 }
 
-export default Home
+export default Accueil
