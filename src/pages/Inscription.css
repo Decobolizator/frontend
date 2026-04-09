@@ -1,0 +1,127 @@
+.content-wrapper {
+  display: flex;
+  height: calc(100vh - 64px);
+  width: 100%;
+}
+
+/* Coté gauche */
+.left-section { /* polygone */
+  flex: 0 0 60%;
+  background-color: #008B8B;
+  padding: 80px 50px;
+  color: white;
+  clip-path: polygon(0 0, 100% 0, 45% 100%, 0% 100%);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.left-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 600%;
+  letter-spacing: 0.04em;
+  font-style: normal;
+  color: #ffffff !important;;
+}
+.left-text {
+  max-width: 82%;
+  font-family: 'Akatab', sans-serif;
+  font-size: 190%;
+  letter-spacing: -0.005em;
+  display: flex;
+  color: rgba(255, 255, 255, 0.61);
+}
+.left-subtext {
+  max-width: 65%;
+  font-family: 'Akatab', sans-serif;
+  font-size: 25px;
+  letter-spacing: 0.04em;
+  color: white;
+}
+.btn-ghost-custom { /* BUTTON connexion */
+  width: 15%;
+  height: 25%;
+  border-radius: 4px;
+  font-size: 1.2vw;
+  padding: 6.4px 15px;
+  background: #EBFBFF;
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.043);
+  border-radius: 8px;
+  color: black !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-ghost-custom:hover,
+.btn-ghost-custom:focus {
+    background-color: white !important;
+    color: rgb(0, 0, 0) !important;
+    border-color: white !important;
+}
+.dino { /* triceratops */
+  position: absolute;
+  bottom: -4%;
+  left: 27%;
+  width: 40%;
+  opacity: 0.3;
+  transform: rotate(-51.8deg) scaleZ(-1);
+}
+
+
+
+
+/* Côté droit */
+.right-section {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #EBFBFF;
+  z-index: 0;
+}
+
+/* text en dessous du titre*/
+.paragraph {
+  text-align: right;
+  font-size: large;
+  color: rgba(0, 0, 0, 0.55);
+  margin-bottom: 5%;
+}
+
+/* form */ 
+.form-container {
+  width: 80%;
+  margin-right: 20%;
+}
+.form-title {
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  font-family: 'Inter', sans-serif;
+  height: -6%;
+  color: #000000;
+}
+.custom-form .ant-form-item { /* Espacement entre les champs du form*/
+  margin-bottom: 25px;
+}
+.custom-form .ant-form-item-label > label { /* Taille des labels du form */
+  font-size: 16px;
+  font-weight: 500;
+}
+.custom-form .ant-input, /* Taille et hauteur des inputs */
+.custom-form .ant-input-password,
+.custom-form .ant-input-affix-wrapper {
+  height: 45px;
+  font-size: 15px;
+  border-radius: 8px;
+  padding: 0 14px;
+}
+
+/* SUBMIT BUTTON */
+.btn-submit {
+  background-color: #008B8B !important;
+  font-size: large;
+  width: 120px;
+  height: 35px;
+  margin-top: 10px;
+}
