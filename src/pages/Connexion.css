@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Akatab:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Inter:wght@400;600;700&display=swap');
+
+.login-container.light-mode {
+  /* Mode Clair */
+  --login-bg: #EBFBFF;
+  --login-text: #000000;
+  --login-subtitle: rgba(0, 0, 0, 0.55);
+  --login-label: rgba(0, 0, 0, 0.85);
+  --bouton-valider: #8df7fa;
+  --couleur-btn: rgb(255, 255, 255);
+  --curve-bg: rgba(8, 151, 156, 0.28);
+  --main-curve: #0b7a75;
+  --input-bg: #000000;
+
+}
+
+.login-container.dark-mode {
+  /* Mode Sombre */
+  --login-bg: #252C2E;
+  --login-text: #D5D5D5;
+  --login-subtitle: rgba(218, 218, 218, 0.55);
+  --login-label: rgba(0, 0, 0, 0.85);
+  --curve-bg: rgba(9, 224, 231, 0.28);
+  --main-curve: #0b7a75;
+  --input-bg: #D5D5D5;
+}
+
+
+/* Conteneur login */
+.login-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Section formulaire*/
+.form-section {
+  flex: 0 0 60%;
+  display: flex;
+  justify-content: center;
+  padding-top: 5%;
+  background-color: var(--login-bg);
+  z-index: 2;
+}
+.form-content {
+  width: 70%;
+}
+.main-title {
+  font-size: clamp(1.8rem, 4vw, 3rem) !important;
+  font-weight: bold;
+  color: var(--login-text) !important;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 10px !important;
+}
+.subtitle {
+  color: var(--login-subtitle);
+  font-weight: bold;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-family: 'Akatab', sans-serif;
+  margin-bottom: 40px !important;
+}
+.custom-form .ant-form-item-label > label {
+  font-size: clamp(13px, 1.1vw, 16px);
+  color: var(--input-bg);
+}
+.custom-form .ant-input {
+    background-color: #f1eded !important;
+    color: rgb(0, 0, 0) !important; 
+    border-width: 0;
+
+}
+/* Cibler le wrapper complet du password */
+.ant-input-password {
+  background-color: #f1eded !important;
+  border-width: 0;
+}
+.ant-input-password input {
+  background-color: transparent !important;
+}
+/* Changement de la couleur du placeholder */
+.custom-form .ant-input::placeholder {
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+.btn-valider { /* bouton valider */
+  min-width: 120px;
+  height: auto;
+  font-size: clamp(0.75rem, 0.9vw, 1rem);
+  padding: clamp(6px, 0.8vw, 10px) clamp(12px, 2vw, 22px);
+  background: #08979C;
+  color: rgb(255, 255, 255) !important; ;
+  letter-spacing: 0.05em;
+  border-color: #08979C !important;
+  font-family: 'Roboto', sans-serif;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-color: var(--bouton-valider);
+}
+.btn-valider:hover,
+.btn-valider:focus,
+.btn-valider:active {
+  background: #08979C !important;
+  color: rgb(255, 255, 255) !important;
+  border-color: #08979C !important;
+}
+.forgot-link {
+  float: right;
+  font-size: 0.85rem;
+  color: #888;
+}
+/* Inscription */
+.signup-footer {
+  margin-top: 10%;
+}
+.signup-footer p {
+  color: #888;
+}
+.btn-inscription {
+  min-width: 120px;
+  height: auto;
+  margin-bottom: 5%;
+  font-size: clamp(0.75rem, 0.9vw, 1rem);
+  padding: clamp(6px, 0.8vw, 10px) clamp(12px, 2vw, 22px);
+  background: #A4EAF0;
+  color: black !important;
+  letter-spacing: 0.05em;
+  font-family: 'Roboto', sans-serif;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-color: #A4EAF0 !important;
+}
+.btn-inscription:hover,
+.btn-inscription:focus,
+.btn-inscription:active {
+  background: #A4EAF0 !important;
+  color: black !important;
+  border-color: #A4EAF0 !important;
+}
+.inscription{
+  font-family: "Akatab", sans-serif;
+  letter-spacing: 4%;
+  font-size: 18px;
+  color: var(--input-bg);
+}
+
+
+
+/* section dino */
+.design-section {
+  flex: 0 0 40%;
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--login-bg);
+  overflow: hidden;
+}
+.curve-overlay {
+  position: absolute;
+  top: 0; bottom: 0; right: 0;
+  left: -230px;
+  background-color: var(--curve-bg);
+  clip-path: path('M 5000 0 L 5000 5000 L 1250 900 C 100 1000, -100 400, 800 0 Z');
+  z-index: 1;
+}
+.main-curve-content {
+  position: absolute;
+  top: 0; bottom: 0; right: 0;
+  left: -170px;
+  background-color: var(--main-curve);
+  clip-path: path('M 5000 0 L 5000 5000 L 1250 900 C 100 1000, -100 400, 800 0 Z');
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dino masqué par défaut, affiché seulement sur grands écrans */
+.dino_co {
+  position: absolute;
+  top: 0%;
+  left: 450px;
+  width: clamp(500px, 100%, 1000px);
+  opacity: 0.5;
+  transform: scaleX(-1);
+  z-index: 3;
+  pointer-events: none;
+  display: none;
+}
+
+/* Partie responsive */
+/* RESPONSIVE — Grand écran (> 1200px) : dino visible*/
+@media (min-width: 1200px) {
+  .dino_co {
+    display: block;
+  }
+}
+/*RESPONSIVE — Petit ordi / tablette paysage (≤ 1200px)*/
+@media (max-width: 1200px) {
+  .form-section {
+    flex: 0 0 55%;
+  }
+
+  .design-section {
+    flex: 0 0 45%;
+  }
+
+  .form-content {
+    width: 80%;
+  }
+}
+
+/* RESPONSIVE — Tablette portrait (≤ 900px)*/
+@media (max-width: 900px) {
+  .form-section {
+    flex: 0 0 65%;
+  }
+
+  .design-section {
+    flex: 0 0 35%;
+  }
+
+  .form-content {
+    width: 88%;
+  }
+}
+
+/* RESPONSIVE — Mobile / tablette étroit (≤ 768px)
+   La section déco disparaît, formulaire pleine largeur*/
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .form-section {
+    flex: 1;
+    width: 100%;
+    padding: 40px 24px 48px;
+    justify-content: flex-start;
+  }
+
+  .form-content {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .design-section {
+    display: none;
+  }
+
+  .signup-footer {
+    margin-top: 32px;
+  }
+}
+
+/* RESPONSIVE — Très petit mobile (≤ 400px) */
+@media (max-width: 400px) {
+  .form-section {
+    padding: 28px 16px 36px;
+  }
+
+  .main-title {
+    font-size: 1.6rem !important;
+  }
+}

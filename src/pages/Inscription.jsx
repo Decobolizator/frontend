@@ -2,13 +2,13 @@ import { Form, Input, Button, Layout, Typography, Space, Switch, Row, Col } from
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const { Title, Paragraph } = Typography;
-
+import { useOutletContext } from 'react-router-dom';
 import './Inscription.css'
 
 const Inscription = () => {
     const navigate = useNavigate();
     const [form] = Form.useForm();
-
+    const { darkMode } = useOutletContext();
     const onFinish = async (values) => {
         try {
             const response = await axios.post('http://votre-api.com/register', values);
@@ -19,7 +19,7 @@ const Inscription = () => {
     };
 
     return (
-        <div className='content-wrapper'>
+        <div className={`content-wrapper ${darkMode ? 'dark-mode' : 'light-mode'}`}>
             
             {/* Section Gauche */}
             <div className='left-section'>
@@ -43,7 +43,7 @@ const Inscription = () => {
                 </div>
 
                 {/* Triceratops */}
-                <img src="/src/assets/triceratops.png" alt="Dino" className='dino' />
+                <img src="/src/assets/triceratops.svg" alt="Dino" className='dino' />
             </div>
 
             {/* Section droite (inscription) */}

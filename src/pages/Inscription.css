@@ -1,13 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Akatab:wght@400;700&family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Inter:wght@400;600;700&display=swap');
 
+
+/* Gestion mode clair */
+.content-wrapper.light-mode {
+  --login-bg: #EBFBFF;
+  --login-text: #000000;
+  --login-subtitle: rgba(0, 0, 0, 0.55);
+}
+
+/* Gestion mode sombre */
+.content-wrapper.dark-mode {
+  --login-bg: #252C2E;
+  --login-text: #D5D5D5;
+  --login-subtitle:rgba(218, 218, 218, 0.55);
+}
+
+
+/* contenu global page */
 .content-wrapper {
   display: flex;
   min-height: calc(100vh - 64px);
   width: 100%;
 }
+.content-wrapper,
+.content-wrapper *,
+.left-section,
+.right-section,
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-form-item-label label { 
+/* gestion fluidité quand on change mode clair et sombre*/
+  transition: 
+    background-color 0.5s ease-in-out, 
+    color 0.5s ease-in-out, 
+    border-color 0.5s ease-in-out, 
+    box-shadow 0.5s ease-in-out !important;
+}
 
+.ant-input-affix-wrapper-focused, 
+.ant-input:focus {
+    transition: all 0.5s ease-in-out !important;
+}
 /* Coté gauche */
 .left-section { /* polygone */
-  flex: 0 0 55%;
+  flex: 0 0% 55%;
   background-color: #008B8B;
   padding: 6vw 4vw;
   color: white;
@@ -44,6 +81,7 @@
   min-width: 100px;
   height: auto;
   border-radius: 8px;
+  font-family:  'Roboto', sans-serif;
   font-size: clamp(0.75rem, 0.9vw, 1rem);
   padding: clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 22px);
   background: #EBFBFF;
@@ -63,10 +101,10 @@
 .dino { /* triceratops */
   position: absolute;
   top: 55%;
-  left: 30.5%;
+  left: 28.8%;
   width: clamp(200px, 35%, 420px);
-  opacity: 0.3;
-  transform: rotate(-55deg) scaleZ(-1);
+  opacity: 0.5;
+  transform: rotate(-52deg) scaleZ(-1);
   pointer-events: none;
 }
 
@@ -78,7 +116,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #EBFBFF;
+  background: var(--login-bg);
   padding: 4vh 3vw;
   z-index: 0;
 }
@@ -87,8 +125,13 @@
 .paragraph {
   text-align: right;
   font-size: clamp(0.8rem, 0.9vw, 1rem);
-  color: rgba(0, 0, 0, 0.55);
+  color: var(--login-subtitle);
   margin-bottom: 50%;
+}
+
+.custom-form .ant-form-item-label > label {
+  font-size: clamp(13px, 1.1vw, 16px);
+  color: var(--login-subtitle)!important;
 }
 
 /* form */
@@ -103,7 +146,7 @@
   letter-spacing: -0.005em;
   font-family: 'Inter', sans-serif;
   font-size: clamp(1.2rem, 2vw, 1.8rem);
-  color: #000000;
+  color: var(--login-text) !important;
 }
 .custom-form .ant-form-item { /* Espacement entre les champs du form */
   margin-bottom: 20px;

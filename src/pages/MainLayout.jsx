@@ -3,20 +3,31 @@ import { SunOutlined, MoonOutlined, MailOutlined, GithubOutlined, LinkedinOutlin
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 const { Content, Header, Footer } = Layout;
 const { Title, Text } = Typography;
+import { useState } from 'react';
 
 const MainLayout = () => {
     const navigate = useNavigate();
+    const [darkMode, setDarkMode] = useState(false);
+
+    const toggleTheme = (checked) => {
+        setDarkMode(checked);
+    };
 
     return (
-       <Layout className="main-layout">
+        <Layout className={`main-layout ${darkMode ? 'dark-mode' : 'light-mode'}`}>
 
-         {/* Header */}            
-           <Header className="header">
+            {/* Header */}
+            <Header className="header">
                 <div className="header-left">
-                    <img src="/src/assets/logo.svg" className="logo" />
-                    <img src="/src/assets/nametag.png" alt="Name" className='nametag'/>
 
-                    {/* Navigation */}   
+                    <img src="/src/assets/logo.svg" className="logo" />
+                    <img
+                        src={darkMode ? "/src/assets/nametag_sombre.svg" : "/src/assets/nametag_claire.svg"}
+                        alt="Name"
+                        className="nametag"
+                    />
+
+                    {/* Navigation */}
                     <div className='header-left'>
                         <NavLink
                             to="/"
@@ -33,15 +44,17 @@ const MainLayout = () => {
                     </div>
                 </div>
 
-                {/* Bouton mode claire/sombre */}   
+                {/* Bouton mode claire/sombre */}
                 <Space size="large">
                     <Switch
                         className="custom-switch"
                         unCheckedChildren={<SunOutlined />}
                         checkedChildren={<MoonOutlined />}
                         defaultChecked={false}
+                        onChange={toggleTheme}
+                        checked={darkMode}
                     />
-                    <Button className="btn-primary-custom" onClick={() => navigate('/inscription')}>
+                    <Button className="btn-primary-custom" onClick={() => navigate('/login')}>
                         Connexion
                     </Button>
                 </Space>
@@ -49,7 +62,7 @@ const MainLayout = () => {
 
             {/* Content */}
             <Content className='content'>
-                <Outlet />
+                <Outlet context={{ darkMode }} /> {/*pour passer l'etat du theme (dark/light mode)*/}
             </Content>
 
             {/* Footer */}
@@ -61,8 +74,13 @@ const MainLayout = () => {
                             {/* Conteneur horizontal pour Logo + NameTag */}
                             <div className='footer-logo'>
                                 <img src="/src/assets/logo.svg" alt="Logo" />
-                                <img src="/src/assets/nametag.png" alt="Name" />
+                                <img
+                                    src={darkMode ? "/src/assets/nametag_sombre.svg" : "/src/assets/nametag_claire.svg"}
+
+                                />
                             </div>
+
+
 
                             <Text type="secondary" className='footer-text'>
                                 ScandCod est un site web permettant de traduire et de comprendre vos codes en langage Cobol.

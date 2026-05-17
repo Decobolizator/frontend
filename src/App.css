@@ -1,26 +1,58 @@
+:root {
+  --transition-speed: 0.5s ease-in-out;
+}
+
+.main-layout.light-mode {
+  /* Mode Clair (Défaut) */
+  --bg-header: #ffffff;
+  --bg-content: #EBFBFF;
+  --bg-footer: #ffffff;
+  --text-main: #000000;
+  --text-nav: #000000;
+  --footer-border: #d9d9d9;
+  --logo-filter: none;
+}
+
+.main-layout.dark-mode {
+  /* Mode Sombre */
+  --bg-header: #000000;
+  --bg-content: #252C2E;
+  --bg-footer: #000000;
+  --text-main: #ffffff;
+  --text-nav: #ffffff;
+  --footer-border: #636363;
+
+}
+
 /* GLOBAL */
-html, body, #root {
+html,
+body,
+#root {
   width: 100%;
   max-width: 100%;
   margin: 0 !important;
   padding: 0 !important;
   font-family: 'Akatab', sans-serif;
-  margin-right: 0%;
 }
 
+body,
+body * {
+  transition: background-color var(--transition-speed),
+    color var(--transition-speed),
+    border-color var(--transition-speed) !important;
+}
 
 /* LAYOUT */
 .main-layout {
   min-height: 100vh;
   width: 100%;
-  background: #fff;
+  background: var(--bg-content);
+  transition: all 0.3s ease;
 }
 
-
 /* HEADER */
-
 .header {
-  background: #ffffff;
+  background: var(--bg-header) !important;
   display: flex;
   position: sticky !important;
   top: 0 !important;
@@ -28,30 +60,38 @@ html, body, #root {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  transition: background 0.3s ease;
+  border-bottom: 1px solid var(--footer-border);
 }
+
 .header-left {
   display: flex;
   align-items: center;
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 /* Logo et nametag */
 .logo {
   width: 65px !important;
   height: auto !important;
+  filter: var(--logo-filter);
 }
+
 .nametag {
   margin-right: 5%;
   width: 400px;
+  filter: var(--logo-filter);
 }
 
 /* Barre de navigation */
 .nav-link {
-  color: #000;
+  color: var(--text-nav) !important;
   padding: 10px 15px;
-  position: relative; 
+  position: relative;
   font-size: 19px;
+  transition: color 0.3s ease;
 }
+
 .nav-link::after {
   content: '';
   position: absolute;
@@ -63,18 +103,13 @@ html, body, #root {
   transition: all 0.3s ease;
   transform: translateX(-50%);
 }
-.nav-link:hover {
-  color: #08979C; 
-}
+
+.nav-link:hover,
 .nav-link.active {
-  color: #08979C;
-  font-weight: bold;
+  color: #08979C !important;
 }
-.nav-link:hover::after {
-  color: #08979C;
-  width: 100%; 
-}
-.nav-link.active::after { /* Style pour l'onglet actif */
+
+.nav-link.active::after {
   width: 80%;
   background-color: #08979C;
 }
@@ -85,66 +120,46 @@ html, body, #root {
   min-width: 44px !important;
   height: 22px !important;
   background: #BFBFBF !important;
-  border-radius: 16px !important;
 }
-.custom-switch .ant-switch-handle {
-  width: 18px !important;
-  height: 18px !important;
-  top: 2px !important;
-  inset-inline-start: 2px !important;
-}
+
 .custom-switch.ant-switch-checked {
   background: #08979C !important;
 }
-.custom-switch.ant-switch-checked .ant-switch-handle {
-  inset-inline-start: calc(100% - 20px) !important;
-}
 
-/*bouton connexion*/
-.btn-primary-custom { 
+/* Bouton connexion */
+.btn-primary-custom {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px 15%;
-  height: 1%;
+  padding: 5px 25px;
+  /* Ajusté pour être plus stable */
   background-color: #08979C !important;
   border-radius: 8px;
-  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.043);
   font-family: 'Roboto', sans-serif;
-  font-size: 120%;
   color: #FFFFFF !important;
+  border: none;
 }
-
-
 
 /* CONTENT */
 .content {
   width: 100%;
-  background-color: #EBFBFF;
-  padding: 0;
-  margin: 0;
+  background-color: var(--bg-content);
+  transition: background-color 0.3s ease;
 }
-
-
 
 /* FOOTER */
 .footer {
-  background-color: #ffffff;
+  background-color: var(--bg-footer) !important;
   padding: 30px 20px;
-  border-top: 1px solid #d9d9d9;
+  border-top: 1px solid var(--footer-border);
+  transition: all 0.3s ease;
 }
-.footer .ant-row {
-  align-items: flex-start;
-}
-.footer .ant-col {
-  padding-top: 0 !important;
-}
-.footer-logo {
-  display: flex;
-  align-items: center;
-}
+
 .footer-text {
-  margin-left: 18%;
-  display: block;
-  color: gray;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+.footer .ant-typography {
+  color: var(--text-main) !important;
 }

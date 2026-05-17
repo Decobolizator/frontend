@@ -8,6 +8,7 @@ import Compte from './pages/Compte';
 import Convertisseur from './pages/Convertisseur';
 import Connexion from './pages/Connexion';
 import MainLayout from './pages/MainLayout';
+import Parametres from './pages/Parametres';
 function App() {
   return (
     <BrowserRouter>
@@ -18,6 +19,7 @@ function App() {
           <Route path="inscription" element={<Inscription />} />
           <Route path="login" element={<Connexion />} />
           <Route path="compte" element={<Compte />} />
+          <Route path="parametres" element={<Parametres />} />
         </Route>
       </Routes>
     </BrowserRouter>
