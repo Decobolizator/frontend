@@ -15,6 +15,6 @@ jobs:
           echo "${{ secrets.SERVER_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           echo "${{ secrets.SERVER_SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
       - name: connect and pull
-        run: ssh ${{ secrets.SERVER_SSH_USER }}@${{ secrets.SERVER_SSH_HOST }} -p 2027 "cd ${{ secrets.SERVER_WORKDIR }} && git checkout ${{ secrets.DEV_BRANCH }} && git pull"
+        run: ssh ${{ secrets.SERVER_SSH_USER }}@${{ secrets.SERVER_SSH_HOST }} "cd ${{ secrets.SERVER_WORKDIR }} && git checkout ${{ secrets.DEV_BRANCH }} && git pull"
       - name: cleanup
         run: rm -rf ~/.ssh
