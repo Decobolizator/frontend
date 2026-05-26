@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: install ssh keys
-        run:
+        run: |
           install -m 600 -D /dev/null ~/.ssh/github-actions
           echo "${{ secrets.SERVER_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SERVER_SSH_HOST }} > ~/.ssh/known_hosts
