@@ -1,0 +1,20 @@
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  run_pull:
+    name: run pull
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: install ssh keys
+        run:
+          install -m 600 -D /dev/null ~/.ssh/github-actions
+          echo "${{ secrets.SERVER_SSH_PRIVATE_KEY }}" > ~/.ssh/github-actions
+          ssh-keyscan -H ${{ secrets.SERVER_SSH_HOST }} > ~/.ssh/known_hosts
+      - name: connect and pull
+        run: ssh ${{ secrets.SERVER_SSH_USER }}@${{ secrets.SERVER_SSH_HOST }} -p 2027 "cd ${{ secrets.SERVER_WORKDIR }} && git checkout ${{ secrets.DEV_BRANCH }} && git pull"
+      - name: cleanup
+        run: rm -rf ~/.ssh
