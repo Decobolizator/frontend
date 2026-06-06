@@ -9,6 +9,8 @@ import Convertisseur from './pages/Convertisseur';
 import Connexion from './pages/Connexion';
 import MainLayout from './pages/MainLayout';
 import Parametres from './pages/Parametres';
+import Erreur403 from './pages/Erreur403';
+
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +22,7 @@ function App() {
           <Route path="login" element={<Connexion />} />
           <Route path="compte" element={<Compte />} />
           <Route path="parametres" element={<Parametres />} />
+          <Route path="erreur403" element={<Erreur403 />} />
         </Route>
       </Routes>
     </BrowserRouter>
