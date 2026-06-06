@@ -10,6 +10,7 @@ import Connexion from './pages/Connexion';
 import MainLayout from './pages/MainLayout';
 import Parametres from './pages/Parametres';
 import Erreur403 from './pages/Erreur403';
+import Deconnexion from './pages/Deconnexion';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="compte" element={<Compte />} />
           <Route path="parametres" element={<Parametres />} />
           <Route path="erreur403" element={<Erreur403 />} />
+          <Route path="deconnexion" element={<Deconnexion />} />
         </Route>
       </Routes>
     </BrowserRouter>
