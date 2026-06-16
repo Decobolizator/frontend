@@ -1,10 +1,11 @@
 import './App.css'
 // Import router
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './context/ProtectedRoute';
 // Import composants pages
 import Accueil from './pages/Accueil';
 import Inscription from './pages/Inscription';
-import Compte from './pages/Compte';
 import Convertisseur from './pages/Convertisseur';
 import Connexion from './pages/Connexion';
 import MainLayout from './pages/MainLayout';
@@ -12,22 +13,26 @@ import Parametres from './pages/Parametres';
 import Erreur403 from './pages/Erreur403';
 import Deconnexion from './pages/Deconnexion';
 
+
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Accueil />} />
-          <Route path="convertisseur" element={<Convertisseur />} />
-          <Route path="inscription" element={<Inscription />} />
-          <Route path="login" element={<Connexion />} />
-          <Route path="compte" element={<Compte />} />
-          <Route path="parametres" element={<Parametres />} />
-          <Route path="erreur403" element={<Erreur403 />} />
-          <Route path="deconnexion" element={<Deconnexion />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Accueil />} />
+            <Route path="inscription" element={<Inscription />} />
+            <Route path="login" element={<Connexion />} />
+            <Route path="erreur403" element={<Erreur403 />} />
+
+            {/* Routes protégées */}
+            <Route path="convertisseur" element={<ProtectedRoute><Convertisseur /></ProtectedRoute>} />
+            <Route path="parametres" element={<ProtectedRoute><Parametres /></ProtectedRoute>} />
+            <Route path="deconnexion" element={<ProtectedRoute><Deconnexion /></ProtectedRoute>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   )
 }
 

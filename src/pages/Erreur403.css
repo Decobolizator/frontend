@@ -5,7 +5,7 @@
     align-items: center;
     min-height: calc(100vh - 64px);
     width: 100%;
-    background-color: #EBFBFF !important;
+  
 }
 
 /* WINDOW */
@@ -56,4 +56,37 @@
     height: 36px;
     margin-top: 8px;
     border: 1px solid #008B8B;
+}
+
+.custom-toast-deco {
+  position: fixed !important;
+  top: 80px !important;
+  right: 0px !important;
+  left: auto !important;
+  width: 35% !important;
+}
+
+
+/* Supprime le centrage par défaut d'Ant Design */
+.custom-toast-deco .ant-message-notice {
+  text-align: right !important;
+}
+
+/* Style du block blanc */
+.custom-toast-deco .ant-message-notice-content {
+  background: #FFFFFF !important;
+  padding: 32px 100px 32px 32px !important;
+  border-radius: 2px !important;
+  text-align: left;
+}
+/* Aligne verticalement la coche verte avec le titre */
+.custom-toast-deco .ant-message-custom-content {
+  display: flex !important;
+  align-items: flex-start !important;
+}
+/* Style de l'icône de succès */
+.custom-toast-deco .ant-message-custom-content .anticon {
+  font-size: 20px !important;
+  margin-right: 10px !important;
+  margin-top: 0px;
 }

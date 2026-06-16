@@ -38,6 +38,7 @@ body,
 body,
 body * {
   transition: background-color var(--transition-speed),
+    background var(--transition-speed),
     color var(--transition-speed),
     border-color var(--transition-speed) !important;
 }
@@ -47,7 +48,7 @@ body * {
   min-height: 100vh;
   width: 100%;
   background: var(--bg-content);
-  transition: all 0.3s ease;
+  transition: background var(--transition-speed);
 }
 
 /* HEADER */
@@ -60,7 +61,7 @@ body * {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  transition: background 0.3s ease;
+  transition: background var(--transition-speed), border-color var(--transition-speed);
   border-bottom: 1px solid var(--footer-border);
 }
 
@@ -89,7 +90,7 @@ body * {
   padding: 10px 15px;
   position: relative;
   font-size: 19px;
-  transition: color 0.3s ease;
+  transition: background-color var(--transition-speed);
 }
 
 .nav-link::after {
@@ -100,7 +101,7 @@ body * {
   bottom: 20px;
   left: 50%;
   background-color: #08979C;
-  transition: all 0.3s ease;
+  transition: background-color var(--transition-speed);
   transform: translateX(-50%);
 }
 
@@ -132,7 +133,6 @@ body * {
   justify-content: center;
   align-items: center;
   padding: 5px 25px;
-  /* Ajusté pour être plus stable */
   background-color: #08979C !important;
   border-radius: 8px;
   font-family: 'Roboto', sans-serif;
@@ -144,7 +144,7 @@ body * {
 .content {
   width: 100%;
   background-color: var(--bg-content);
-  transition: background-color 0.3s ease;
+  transition: background-color var(--transition-speed);
 }
 
 /* FOOTER */
@@ -152,14 +152,29 @@ body * {
   background-color: var(--bg-footer) !important;
   padding: 30px 20px;
   border-top: 1px solid var(--footer-border);
-  transition: all 0.3s ease;
+  transition: background-color var(--transition-speed);
 }
 
 .footer-text {
   color: var(--text-secondary);
   opacity: 0.8;
+  justify-self: center;
+  text-align: center !important;
+
+
 }
 
 .footer .ant-typography {
   color: var(--text-main) !important;
+  text-align: justify !important;
+}
+
+@media (max-width: 1000px) {
+  .nametag {
+    display: none;
+  }
+
+  .custom-switch {
+    display: none;
+  }
 }

@@ -1,13 +1,21 @@
-import { Layout, Typography, Space, Switch, Row, Col, Button } from 'antd';
-import { SunOutlined, MoonOutlined, MailOutlined, GithubOutlined, LinkedinOutlined } from '@ant-design/icons';
+import { Layout, Typography, Space, Switch, Row, Col, Button, Modal } from 'antd';
+import { SunOutlined, MoonOutlined, MailOutlined, GithubOutlined, LinkedinOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 const { Content, Header, Footer } = Layout;
 const { Title, Text } = Typography;
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { Avatar } from 'antd';
 
 const MainLayout = () => {
     const navigate = useNavigate();
     const [darkMode, setDarkMode] = useState(false);
+    const [isPopupOpen, setPopupOpen] = useState(false);
+    const { user } = useAuth();
+
+    const getInitials = (firstName, lastName) => {
+        return `${firstName?.[0] || ''}${lastName?.[0] || ''}`.toUpperCase();
+    };
 
     const toggleTheme = (checked) => {
         setDarkMode(checked);
@@ -22,7 +30,7 @@ const MainLayout = () => {
 
                     <img src="/src/assets/logo.svg" className="logo" />
                     <img
-                        src={darkMode ? "/src/assets/nametag_sombre.svg" : "/src/assets/nametag_claire.svg"}
+                        src={"/src/assets/nametag.svg"}
                         alt="Name"
                         className="nametag"
                     />
@@ -54,43 +62,52 @@ const MainLayout = () => {
                         onChange={toggleTheme}
                         checked={darkMode}
                     />
-                    <Button className="btn-primary-custom" onClick={() => navigate('/login')}>
-                        Connexion
-                    </Button>
-                </Space>
-            </Header>
 
-            {/* Content */}
-            <Content className='content'>
-                <Outlet context={{ darkMode }} /> {/*pour passer l'etat du theme (dark/light mode)*/}
-            </Content>
+                    {
+                        user?(
+                        <Avatar
+                            size = { 40}
+                            style = {{ backgroundColor: '#08979C', fontSize: '1.2rem', fontFamily: 'Akatab, sans-serif', cursor: 'pointer' }}
+                            onClick={() => setPopupOpen(true)}
+                        >
+                    {getInitials(user.firstName, user.lastName)}
+                </Avatar>
 
-            {/* Footer */}
-            <Footer className='footer'>
-                <Row justify="space-between" align="top">
-                    <Col xs={24} md={8}>
-                        <Space orientation="vertical" size={0}>
+                ) : (
+                <Button className="btn-primary-custom" onClick={() => navigate('/login')}>
+                    Connexion
+                </Button>
 
-                            {/* Conteneur horizontal pour Logo + NameTag */}
-                            <div className='footer-logo'>
+                    )}
+            </Space>
+
+        </Header>
+
+            {/* Content  onClick={() => navigate('/parametres')} */ }
+    <Content className='content'>
+        <Outlet context={{ darkMode }} /> {/*pour passer l'etat du theme (dark/light mode)*/}
+    </Content>
+
+    {/* Footer */ }
+            <Footer className='footer'  >
+                <Row justify="space-between" align="top" >
+                    <Col xs={24} md={9} >
+                        <Space direction="vertical" size={0} align="start" style={{ width: '100%' }}>
+
+                            <div className='footer-logo' >
                                 <img src="/src/assets/logo.svg" alt="Logo" />
-                                <img
-                                    src={darkMode ? "/src/assets/nametag_sombre.svg" : "/src/assets/nametag_claire.svg"}
-
-                                />
+                                <img src={"/src/assets/nametag.svg"} alt="Nametag" style={{ marginBottom: "4%" }} />
                             </div>
 
-
-
-                            <Text type="secondary" className='footer-text'>
+                            <Text type="secondary" className='footer-text' style={{ display: 'block', paddingLeft: "15%" }}>
                                 ScandCod est un site web permettant de traduire et de comprendre vos codes en langage Cobol.
                             </Text>
-                        </Space>
 
+                        </Space>
                     </Col>
 
                     <Col xs={12} md={4}>
-                        <Title level={5}>Navigation</Title>
+                        <Title level={5} style={{ marginBottom: "5%" }}>Navigation</Title>
                         <Space orientation="vertical">
                             <NavLink to="/" style={{ color: 'gray' }}>Accueil</NavLink>
                             <NavLink to="/convertisseur" style={{ color: 'gray' }}>Convertisseur</NavLink>
@@ -98,17 +115,52 @@ const MainLayout = () => {
                     </Col>
 
                     <Col xs={12} md={4}>
-                        <Title level={5}>Contact</Title>
+                        <Title level={5} style={{ marginBottom: "5%" }}>Contact</Title>
                         <Space orientation="vertical">
-                            <Space><MailOutlined /><Text>contact@decobol.fr</Text></Space>
-                            <Space size="large">
-                                <GithubOutlined /><LinkedinOutlined />
+                            <Space><MailOutlined style={{ color: darkMode ? "#ffffff" : "#000000" }} /><Text>contact@decobol.fr</Text></Space>
+                            <Space size="small">
+                                <GithubOutlined style={{ color: darkMode ? "#ffffff" : "#000000" }} /><Text>https://github.com/Decobolizator</Text>
+
                             </Space>
+
                         </Space>
                     </Col>
                 </Row>
             </Footer>
-        </Layout>
+            <Modal
+                open={isPopupOpen}
+                onCancel={() => setPopupOpen(false)}
+                width={210}
+                style={{ top: '12%', left: '39%' }}
+                footer={[]}
+            >
+
+                <Button
+                    type="text"
+                    icon={<UserOutlined />}
+                    style={{ paddingLeft: '0px', paddingBottom: '10%', paddingTop: '15%' }}
+
+                    onClick={() => {
+                        navigate('/parametres');
+                        setPopupOpen(false);
+                    }}
+                >
+                    Mon compte
+                </Button>
+
+                <Button
+                    type="text"
+                    icon={<LogoutOutlined />}
+                    style={{ paddingLeft: '0px', paddingBottom: '0px' }}
+                    onClick={() => {
+                        navigate('/deconnexion');
+                        setPopupOpen(false);
+                    }}
+                >
+                    Se déconnecter
+                </Button>
+            </Modal>
+        </Layout >
     );
 };
 

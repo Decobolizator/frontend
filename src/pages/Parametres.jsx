@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Tabs, Avatar, Button, Input, Modal, message } from 'antd';
 import { UserOutlined, MailOutlined, BankOutlined, LockOutlined, UploadOutlined } from '@ant-design/icons';
 import { useOutletContext } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './Parametres.css';
 
 const { TabPane } = Tabs;
@@ -13,13 +14,14 @@ const utilisateur = {
     email: 'alice.martin@example.fr',
     entreprise: 'EPF Engineering School',
     mdp: '123',
-    photoProfil: null,
+    photoProfil: "https://tse4.mm.bing.net/th/id/OIP.hXWwNOQw15ZVWKlMs-xv0wHaFQ?pid=Api&P=0&h=180",
 };
 
 // Onglet Mon Compte
 const MonCompteTab = () => {
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
+    const { user } = useAuth();
 
     // États pour les inputs
     const [oldPassword, setOldPassword] = useState('');
@@ -60,12 +62,13 @@ const MonCompteTab = () => {
             <h2 className="section-title">Informations personnelles</h2>
 
             <div className="profile-photo-row">
-                <Avatar size={56} style={{ backgroundColor: '#08979C', fontSize: '1.2rem', fontFamily: 'Akatab, sans-serif', overflow: 'hidden' }}>
-                    {utilisateur?.photoProfil ? (
-                        <img src={utilisateur.photoProfil} alt="Photo" />
-                    ) : (
-                        `${utilisateur.prenom?.charAt(0).toUpperCase()}${utilisateur.nom?.charAt(0).toUpperCase()}`
-                    )}
+                <Avatar
+                    size={56}
+                    src={user?.photoProfil || undefined} // Si une photo existe, elle s'affiche
+                    style={{ backgroundColor: '#08979C', fontSize: '1.2rem', fontFamily: 'Akatab, sans-serif' }}
+                >
+                    {/* Si pas de photo, le composant affiche les initiales automatiquement */}
+                    {!user?.photoProfil && `${user.firstName?.charAt(0).toUpperCase()}${user.lastName?.charAt(0).toUpperCase()}`}
                 </Avatar>
 
                 {/* Gestion import de photo */}
@@ -73,10 +76,10 @@ const MonCompteTab = () => {
                     <span className="photo-label">Photo de profil</span>
                     <span className="photo-hint">La photo aide vos collègues à vous reconnaître.</span>
                 </div>
-                <input type="file" id="upload-photo" style={{ display: 'none' }} accept="image/*"/>
+                <input type="file" id="upload-photo" style={{ display: 'none' }} accept="image/*" />
 
-                <Button 
-                    icon={<UploadOutlined />} 
+                <Button
+                    icon={<UploadOutlined />}
                     className="btn-importer"
                     onClick={() => document.getElementById('upload-photo').click()}
                 >
@@ -90,7 +93,7 @@ const MonCompteTab = () => {
                     <span className="info-label">Prénom Nom</span>
                 </div>
                 <div className="info-body">
-                    <span className="info-value">{utilisateur.prenom} {utilisateur.nom}</span>
+                    <span className="info-value">{user.firstName} {user.lastName}</span>
                 </div>
             </div>
 
@@ -100,19 +103,10 @@ const MonCompteTab = () => {
                     <span className="info-label">Email</span>
                 </div>
                 <div className="info-body">
-                    <span className="info-value">{utilisateur.email}</span>
+                    <span className="info-value">{user.email}</span>
                 </div>
             </div>
 
-            <div className="info-block">
-                <div className="info-header">
-                    <span className="info-icon"><BankOutlined /></span>
-                    <span className="info-label">Entreprise</span>
-                </div>
-                <div className="info-body">
-                    <span className="info-value">{utilisateur.entreprise}</span>
-                </div>
-            </div>
 
             <div className="info-block">
                 <div className="info-header">
@@ -145,7 +139,7 @@ const MonCompteTab = () => {
             >
                 <div style={{ marginTop: 16 }}>
                     <p style={{ marginBottom: 8 }}>Veuillez entrer votre ancien mot de passe :</p>
-                    <Input.Password placeholder="Ancien mot de passe" value={oldPassword} onChange={e => setOldPassword(e.target.value)}/>
+                    <Input.Password placeholder="Ancien mot de passe" value={oldPassword} onChange={e => setOldPassword(e.target.value)} />
                 </div>
             </Modal>
 

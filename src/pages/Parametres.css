@@ -54,11 +54,19 @@
 
 /* Tabs */
 .moncompte-tabs .ant-tabs-nav {
-  margin-bottom: 0;
+  margin-bottom: -1px !important;
+  z-index: 2 !important;
 }
 .moncompte-tabs .ant-tabs-tab {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif ;
   padding: 8px 16px;
+  background-color: var(--inactive-tab)  !important; 
+  color: #000000 !important;
+  border-radius: 10%;
+  border: 1px solid #d4f0f2 !important;
+
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0%;
   margin-right: -11% !important;
 }
 .moncompte-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
@@ -74,16 +82,9 @@ color: #08979C !important;
   border-bottom: 1px solid #ffffff !important; 
   z-index: 6 !important; 
   position: relative;
+
 }
-.moncompte-tabs .ant-tabs-tab:not(.ant-tabs-tab-active) {
-  background-color: var(--inactive-tab)  !important; 
-  color: #000000 !important;
-  border-radius: 10%;
-  border: 1px solid #d4f0f2 !important;
-    border-bottom: 1px solid #f7f2f2  !important; 
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0%;
-}
+
 .moncompte-tabs .ant-tabs-ink-bar {
   display: none !important;
 }
@@ -127,6 +128,12 @@ color: #08979C !important;
   padding: 16px 20px;
   margin-bottom: 16px;
   flex-wrap: wrap;
+}
+.profile-photo-row .ant-avatar > img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
 }
 
 .photo-info {
