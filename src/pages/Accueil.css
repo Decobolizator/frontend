@@ -1,0 +1,397 @@
+.accueil-container.light-mode {
+  /* Mode Clair */
+  --accueil-txt: #000000;
+  --accueil-bg: #2078bc0d;
+  --accueil-curve-clair: rgba(8, 151, 156, 0.28);
+  --accueil-curve-foncee: #0b7a75;
+  --guide-title: #000000;
+  --guide-descr: rgba(0, 0, 0, 0.55);
+  --guide-window-bg: #FFFFFF;
+  --guide-keyword: #770088;
+  --guide-comment: #994400;
+  --guide-var: #397f63;
+  --guide-non-active-tab-bg: #FAFAFA;
+  --guide-non-active-tab-txt: rgba(0, 0, 0, 0.85);
+  --guide-result-txt: rgba(0, 0, 0, 0.75);
+  --guide-step-bg: #FFFFFF;
+}
+
+.accueil-container.dark-mode {
+  /* Mode Sombre */
+  --accueil-txt: #D5D5D5;
+  --accueil-bg: #1e2325;
+  --accueil-curve-clair: rgba(9, 224, 231, 0.28);
+  --accueil-curve-foncee: #0b7a75;
+  --guide-title: #D5D5D5;
+  --guide-descr: rgba(218, 218, 218, 0.55);
+  --guide-window-bg: #000000;
+  --guide-keyword: #770088;
+  --guide-comment: #994400;
+  --guide-var: #397f63;
+  --guide-non-active-tab-bg: #484848;
+  --guide-non-active-tab-txt: rgba(255, 255, 255, 0.85);
+  --guide-result-txt: rgba(255, 255, 255, 0.75);
+  --guide-step-bg: #000000;
+
+}
+
+.accueil-container {
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* --- Section A propos --- */
+.section-a-propos {
+  background-color: var(--accueil-bg) !important;
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.a-propos-gauche {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 80px 80px 100px;
+}
+
+.a-propos-gauche h1 {
+  font-size: 48px;
+  font-weight: bold;
+  font-family: 'Inter', sans-serif;
+  color: var(--accueil-txt);
+  margin-bottom: 40px;
+}
+
+.a-propos-texte p {
+  font-size: 18px;
+  font-family: 'Akatab', sans-serif;
+  line-height: 1.6;
+  color: var(--accueil-txt);
+  margin-bottom: 24px;
+  max-width: 600px;
+}
+
+/* partie dino */
+.a-propos-droite {
+  flex: 0 0 40%;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.accueil-curve-clair {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: -230px;
+  background-color: var(--accueil-curve-clair);
+  clip-path: path('M 5000 0 L 5000 5000 L 1250 900 C 100 1000, -100 400, 800 0 Z');
+  z-index: 1;
+}
+
+.accueil-curve-foncee {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: -170px;
+  background-color: var(--accueil-curve-foncee);
+  clip-path: path('M 5000 0 L 5000 5000 L 1250 900 C 100 1000, -100 400, 800 0 Z');
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dino masqué par défaut, affiché seulement sur grands écrans */
+.accueil-dino {
+  position: absolute;
+  top: 0%;
+  left: 450px;
+  width: clamp(500px, 100%, 1000px);
+  opacity: 0.35;
+  transform: scaleX(-1);
+  z-index: 3;
+  pointer-events: none;
+  display: none;
+}
+
+/* --- SECTION 2 : GUIDE --- */
+.section-guide {
+  padding: 40px 60px;
+}
+
+/* Titre et description du guide */
+.guide-title {
+  color: var(--guide-title) !important;
+  font-size: 48px;
+  font-family: Inter, sans-serif;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.guide-description {
+  color: var(--guide-descr);
+  font-size: 18px;
+  font-family: Akatab, sans-serif;
+  font-weight: bold;
+}
+
+/* PANNEAU GAUCHE : Code COBOL */
+/* CONTENEUR 2 BOUTONS */
+.guide-bouton-box {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+  margin-left: 15px;
+}
+
+.guide-bouton {
+  border-radius: 8px;
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #FFFFFF;
+  pointer-events: none;
+}
+
+.guide-bouton.clair {
+  background-color: #13C2C2;
+  border-color: #13C2C2;
+}
+
+.guide-bouton.foncé {
+  background-color: #08979C;
+  border-color: #08979C;
+}
+
+/* Le conteneur global du faux éditeur */
+.guide-fake-editor {
+  width: 100%;
+  height: 495px;
+  background-color: var(--guide-window-bg);
+  border: 1px solid #d9d9d9;
+  border-radius: 16px;
+  font-family: Monospace, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 15px;
+  overflow: hidden !important;
+  user-select: none;
+}
+
+/* Une ligne de code */
+.guide-code-line {
+  display: flex;
+  white-space: pre;
+}
+
+/* Colonne du numéro de ligne */
+.guide-line-number {
+  color: #0808ff;
+  width: 60px;
+  text-align: left;
+  border-left: 1px solid #e8e8e8;
+  padding-left: 5px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+/* Colonne du contenu textuel */
+.guide-line-content {
+  color: var(--accueil-txt);
+}
+
+/* Classes de coloration syntaxique */
+.cb-keyword {
+  color: var(--guide-keyword);
+}
+
+.cb-comment {
+  color: var(--guide-comment);
+}
+
+.cb-var {
+  color: var(--guide-var);
+}
+
+/* PANNEAU DROITE : Résultats */
+/* ONGLETS */
+/* CONTENEUR ONGLETS */
+.guide-tab-box {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: 10px;
+  /* pour que les 2 zones de texte soient alignés */
+}
+
+/* NAV ONGLET */
+.guide-custom-tabs .ant-tabs-nav {
+  margin-bottom: -0.5px !important;
+  /* Force les onglets à coller à la zone du dessous */
+  margin-right: 15px !important;
+  z-index: 2;
+}
+
+/* ONGLETS PAR DEFAUT */
+/* Style de l'onglet */
+.guide-custom-tabs .ant-tabs-tab {
+  background: var(--guide-non-active-tab-bg) !important;
+  border: 1px solid #d9d9d9 !important;
+  padding: 8px 15px !important;
+  border-radius: 8px 8px 0 0 !important;
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+/* Style du texte */
+.guide-custom-tabs .ant-tabs-tab-btn {
+  color: var(--guide-non-active-tab-txt) !important;
+  font-family: Roboto, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+/* L'ONGLET ACTIF  */
+/* Style de l'onglet */
+.guide-custom-tabs .ant-tabs-tab-active {
+  background: var(--guide-window-bg) !important;
+  border-bottom: var(--guide-window-bg) !important;
+
+}
+
+/* Style du texte onglet */
+.guide-custom-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #08979C !important;
+}
+
+/* Le conteneur de la fausse zone de traduction */
+.guide-fake-translation {
+  width: 100%;
+  height: 495px;
+  background-color: var(--guide-window-bg);
+  border: 1px solid #d9d9d9;
+  border-radius: 16px;
+  font-family: Roboto Mono, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 15px;
+  overflow: hidden !important;
+  user-select: none;
+}
+
+/* Style pour chaque ligne de traduction */
+.translation-line {
+  min-height: 21px;
+  color: var(--guide-result-txt);
+  margin-bottom: 0;
+}
+
+/* BOUTON EXPORTER */
+.guide-exporter-box {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-bottom: 15px;
+  margin-right: 15px;
+}
+
+/* L'ancre invisible autour du bouton et de ses indicateurs */
+.guide-step-wrapper {
+  position: relative;
+  display: inline-block;
+  /* S'ajuste pile à la largeur du bouton */
+}
+
+/* Chiffre du step */
+.guide-number-badge {
+  position: absolute;
+  background-color: var(--guide-step-bg);
+  border: 2px solid #7f13c2;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px;
+  color: #7f13c2;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  /* Reste toujours au-dessus */
+  transition: transform 0.2s ease;
+}
+
+.step-1 {
+  top: -15px;
+  left: -15px;
+}
+
+.step-2 {
+  position: absolute;
+  top: -15px;
+  right: 177px;
+}
+
+.step-3 {
+  top: -15px;
+  left: -15px;
+}
+
+.step-4 {
+  bottom: -12px;
+  left: -12px;
+}
+
+.step-5 {
+  bottom: -15px;
+  left: -15px;
+}
+
+.guide-number-badge .guide-number-badge:hover {
+  transform: scale(1.1);
+  /* Petit effet sympa au survol */
+}
+
+/* Partie responsive */
+/* RESPONSIVE — Grand écran (> 1200px) : dino visible*/
+@media (min-width: 1200px) {
+  .accueil-dino {
+    display: block;
+  }
+}
+
+/*RESPONSIVE — Petit ordi / tablette paysage (≤ 1200px)*/
+@media (max-width: 1200px) {
+  .a-propos-droite {
+    flex: 0 0 45%;
+  }
+}
+
+/* RESPONSIVE — Tablette portrait (≤ 900px)*/
+@media (max-width: 900px) {
+  .a-propos-droite {
+    flex: 0 0 35%;
+  }
+}
+
+/* RESPONSIVE — Mobile / tablette étroit (≤ 768px)
+   La section déco disparaît, à propos pleine largeur*/
+@media (max-width: 768px) {
+  .accueil-container {
+    flex-direction: column;
+  }
+
+  .a-propos-droite {
+    display: none;
+  }
+}

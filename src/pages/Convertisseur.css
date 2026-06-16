@@ -1,6 +1,34 @@
+.convertisseur-container.light-mode {
+  /* Mode Clair */
+  --conv-title: #000000;
+  --conv-descr: rgba(0, 0, 0, 0.55);
+  --conv-window-bg: #FFFFFF;
+  --conv-active-line-bg: rgba(101, 250, 255, 0.17);
+  --conv-active-line-border: rgba(101, 250, 255, 0.70);
+  --conv-non-active-tab-bg: #FAFAFA;
+  --conv-non-active-tab-txt: rgba(0, 0, 0, 0.85);
+}
+
+.convertisseur-container.dark-mode {
+  /* Mode Sombre */
+  --conv-title: #D5D5D5;
+  --conv-descr: rgba(218, 218, 218, 0.55);
+  --conv-window-bg: #000000;
+  --conv-active-line-bg: rgba(44, 248, 255, 0.17);
+  --conv-active-line-border: rgba(44, 248, 255, 0.70);
+  --conv-non-active-tab-bg: #484848;
+  --conv-non-active-tab-txt: rgba(255, 255, 255, 0.85);
+}
+
+
+/* Conteneur convertisseur */
+.convertisseur-container {
+  padding: 40px 60px
+}
+
 /* --- Titre et description de la page --- */
 .title { 
-  color: #000000;
+  color: var(--conv-title) !important;
   font-size: 48px;
   font-family: Inter, sans-serif;
   font-weight: bold;
@@ -8,7 +36,7 @@
 }
 
 .description {
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--conv-descr);
   font-size: 18px;
   font-family: Akatab, sans-serif;
   font-weight: bold;
@@ -33,12 +61,12 @@
 }
 
 .bouton.clair {
-  background-color: #13C2C2;
+  background-color: #13C2C2 !important;
   border-color: #13C2C2;
 }
 
 .bouton.foncé {
-  background-color: #08979C;
+  background-color: #08979C !important;
   border-color: #08979C;
 }
 
@@ -48,38 +76,40 @@
   border: 1px solid #d9d9d9;
   border-radius: 16px;
   overflow: hidden;
-  background-color: #FFFFFF;
   min-height: 492px;
 }
+.editeur .cm-editor {
+  background-color: var(--conv-window-bg) !important;
+}
 
-.cm-scroller {
+.editeur .cm-scroller {
   overflow: auto;
 }
 
-.cm-gutters {
-  background-color: #fafafa;
+.editeur .cm-gutters {
+  background-color: var(--conv-window-bg) !important;
   border-right: 1px solid #eef2f5;
 }
 
-.cm-line { 
+.editeur .cm-line { 
   transition: none !important;
 }
 
-.cm-lineNumbers .cm-gutterElement {
+.editeur .cm-lineNumbers,
+.editeur .cm-gutterElement {
   color: #bfbfbf;
-  padding-left: 8px; 
 }
 
-.cm-activeLine {
-  background-color: rgba(101, 250, 255, 0.17);
-  border-top: 1px solid rgba(101, 250, 255, 0.70);
-  border-bottom: 1px solid rgba(101, 250, 255, 0.70);
+.editeur .cm-activeLine {
+  background-color: var(--conv-active-line-bg);
+  border-top: 1px solid var(--conv-active-line-border);
+  border-bottom: 1px solid var(--conv-active-line-border);
 }
 
-.cm-activeLineGutter {
-  background-color: rgba(101, 250, 255, 0.17);
-  border-top: 1px solid rgba(101, 250, 255, 0.70);
-  border-bottom: 1px solid rgba(101, 250, 255, 0.70);
+.editeur .cm-activeLineGutter {
+  background-color: var(--conv-active-line-bg);
+  border-top: 1px solid var(--conv-active-line-border);
+  border-bottom: 1px solid var(--conv-active-line-border);
 }
 
 /* --- PANNEAU DROITE : Résultats --- */
@@ -100,7 +130,7 @@
 /* --- ONGLETS PAR DEFAUT --- */
 /* Style de l'onglet */
 .custom-tabs .ant-tabs-tab {
-  background: #FAFAFA !important; 
+  background: var(--conv-non-active-tab-bg) !important; 
   border: 1px solid #d9d9d9 !important;
   transition: all 0.5s !important;
   padding: 8px 15px !important;
@@ -109,7 +139,7 @@
 
 /* Style du texte */
 .custom-tabs .ant-tabs-tab-btn {
-  color: rgba(0, 0, 0, 0.85) !important;
+  color: var(--conv-non-active-tab-txt) !important;
   font-family: Roboto, sans-serif !important;
   font-size: 14px !important;
   font-weight: 400 !important;
@@ -118,8 +148,8 @@
 /* --- L'ONGLET ACTIF  --- */
 /* Style de l'onglet */
 .custom-tabs .ant-tabs-tab-active {
-  background: #ffffff !important;
-  border-bottom: #ffffff !important;
+  background: var(--conv-window-bg) !important;
+  border-bottom: var(--conv-window-bg) !important;
 
 }
 
@@ -133,8 +163,8 @@
   border-radius: 16px;
   padding: 20px;
   font-size: 16px;
-  border: 1px solid #d9d9d9;
-  background-color: #FFFFFF;
+  border: 1px solid #d9d9d9 !important;
+  background-color: var(--conv-window-bg) !important;
   font-family: Roboto Mono, sans-serif;
 }
 
