@@ -25,7 +25,8 @@ function App() {
             <Route path="inscription" element={<Inscription />} />
             <Route path="login" element={<Connexion />} />
             <Route path="erreur403" element={<Erreur403 />} />
-            <Route path="login2" element={<Connexion2 />} />
+            
+            <Route path="connexion2" element={<Connexion2 />} />
 
             {/* Routes protégées */}
             <Route path="convertisseur" element={<ProtectedRoute><Convertisseur /></ProtectedRoute>} />
