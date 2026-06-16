@@ -1,0 +1,88 @@
+.confirmation-page-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.confirmation-white-box {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 900px;
+  min-height: 300px;
+  padding: 60px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+}
+
+.confirmation-title {
+  font-weight: 700 !important;
+  font-size: 38px !important;
+  margin-bottom: 16px !important;
+  color: #000000 !important;
+}
+
+.confirmation-subtitle {
+  color: #666666;
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 750px;
+  margin-bottom: 40px !important;
+}
+
+.confirmation-form {
+  max-width: 420px;
+  width: 100%;
+  margin-left: 150px;
+}
+
+.confirmation-form .ant-form-item-label > label {
+  font-size: 13px !important;
+  color: #333333 !important;
+  font-weight: 500;
+  padding-bottom: 6px !important;
+}
+
+.confirmation-input {
+  height: 36px !important;
+  border-radius: 4px !important;
+  border: 1px solid #d9d9d9 !important;
+  font-size: 14px !important;
+}
+
+.confirmation-input::placeholder {
+  color: #bfbfbf;
+}
+
+.btn-continuer {
+  background-color: #559696 !important;
+  border-color: #559696 !important;
+  color: #ffffff !important;
+  height: 36px !important;
+  padding: 0 24px !important;
+  border-radius: 4px !important;
+  font-size: 13px !important;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.btn-continuer:hover {
+  background-color: #447a7a !important;
+  border-color: #447a7a !important;
+}
+
+@media (max-width: 768px) {
+  .confirmation-white-box {
+    padding: 30px;
+  }
+  .confirmation-form {
+    margin-left: 0;
+    max-width: 100%;
+  }
+}

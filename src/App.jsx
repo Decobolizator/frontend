@@ -12,6 +12,7 @@ import MainLayout from './pages/MainLayout';
 import Parametres from './pages/Parametres';
 import Erreur403 from './pages/Erreur403';
 import Deconnexion from './pages/Deconnexion';
+import Connexion2 from './pages/Connexion2';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="inscription" element={<Inscription />} />
             <Route path="login" element={<Connexion />} />
             <Route path="erreur403" element={<Erreur403 />} />
+            <Route path="login2" element={<Connexion2 />} />
 
             {/* Routes protégées */}
             <Route path="convertisseur" element={<ProtectedRoute><Convertisseur /></ProtectedRoute>} />

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Tabs, Avatar, Button, Input, Modal, message } from 'antd';
-import { UserOutlined, MailOutlined, BankOutlined, LockOutlined, UploadOutlined } from '@ant-design/icons';
+import { UserOutlined, MailOutlined, BankOutlined, LockOutlined, UploadOutlined, HistoryOutlined } from '@ant-design/icons';
 import { useOutletContext } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Parametres.css';
@@ -173,14 +173,25 @@ const MonCompteTab = () => {
 };
 
 // onglet Historique
-const HistoriqueTab = () => (
-    <div className="account-card">
-        <h2 className="section-title">Historique</h2>
-        <p style={{ color: '#aaa', fontFamily: 'Akatab, sans-serif', marginTop: 12 }}>
-            Historique
-        </p>
-    </div>
-);
+const HistoriqueTab = () => {
+    return (
+        <div className="account-card">
+            <h2 className="section-title">Historique</h2>
+            {Array.from({ length: 5 }).map((_, index) => (
+                <div className="info-block" key={index} style={{ marginBottom: '16px' }}>
+                    <div className="info-header">
+                        <span className="info-icon"><HistoryOutlined /></span>
+                        <span className="info-label">Il y a 27 minutes</span>
+                    </div>
+                    <div className="info-body">
+                        <span className="info-value">exemple_code</span>
+                        <Button className="btn-modifier">Reprendre à partir de là</Button>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+};
 
 // Page principale 
 const Parametres = () => {
