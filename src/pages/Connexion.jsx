@@ -54,7 +54,7 @@ const Connexion = () => {
               label="Mot de passe"
               name="password"
               rules={[{ required: true, message: 'Veuillez entrer votre mot de passe' }]}
-              extra={<a href="#" className="forgot-link">Mot de passe oublié ?</a>}
+              extra={<a href="/forgot-password" className="forgot-link">Mot de passe oublié ?</a>}
             >
               <Input.Password placeholder="******" />
             </Form.Item>

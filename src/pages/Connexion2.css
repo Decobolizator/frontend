@@ -36,25 +36,23 @@
   text-align: right !important;
 }
 
-/* Style du block blanc */
 .custom-toast-right .ant-message-notice-content {
   background: #FFFFFF !important;
   padding: 32px 200px 32px 32px !important;
   border-radius: 2px !important;
   text-align: left;
 }
-/* Aligne verticalement la coche verte avec le titre */
+
 .custom-toast-right .ant-message-custom-content {
   display: flex !important;
   align-items: flex-start !important;
 }
-/* Style de l'icône de succès */
+
 .custom-toast-right .ant-message-custom-content .anticon {
   font-size: 20px !important;
   margin-right: 10px !important;
   margin-top: 0px;
 }
-
 
 .confirmation-title {
   font-weight: 700 !important;
@@ -99,6 +97,18 @@
   background-color: #559696 !important;
   border-color: #559696 !important;
   color: #ffffff !important;
+  height: 36px !important;
+  padding: 0 24px !important;
+  border-radius: 4px !important;
+  font-size: 13px !important;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.btn-annuler {
+  color: #08979C !important;
+  border-color: #08979C !important;
+  background-color: #ffffff !important;
   height: 36px !important;
   padding: 0 24px !important;
   border-radius: 4px !important;

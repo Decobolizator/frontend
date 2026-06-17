@@ -13,6 +13,8 @@ import Parametres from './pages/Parametres';
 import Erreur403 from './pages/Erreur403';
 import Deconnexion from './pages/Deconnexion';
 import Connexion2 from './pages/Connexion2';
+import Oubli from './pages/Oubli';
+import Oubli2 from './pages/Oubli2';
 
 
 function App() {
@@ -25,8 +27,9 @@ function App() {
             <Route path="inscription" element={<Inscription />} />
             <Route path="login" element={<Connexion />} />
             <Route path="erreur403" element={<Erreur403 />} />
-            
             <Route path="connexion2" element={<Connexion2 />} />
+            <Route path="forgot-password" element={<Oubli />} />
+            <Route path="reset-password" element={<Oubli2 />} />
 
             {/* Routes protégées */}
             <Route path="convertisseur" element={<ProtectedRoute><Convertisseur /></ProtectedRoute>} />
