@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Typography, Row, Col, Button, Input, Tabs, Layout, Popover } from 'antd';
 const { Title, Paragraph } = Typography;
 const { TextArea } = Input;
-import { UploadOutlined, DownloadOutlined, ReloadOutlined, FolderAddOutlined, FolderOutlined } from '@ant-design/icons';
+import { UploadOutlined, DownloadOutlined, ReloadOutlined, FolderOpenOutlined, FolderOutlined, FileOutlined } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
 const { Header, Content } = Layout;
 import { useOutletContext } from 'react-router-dom';
@@ -24,7 +24,7 @@ const Accueil = () => {
             {/* --- Section à propos --- */}
             <section className="section-a-propos">
                 {/* Partie gauche paragraphe */}
-                
+
                 <div className="a-propos-gauche">
                     <h1>À propos du site</h1>
                     <div className="a-propos-texte">
@@ -59,10 +59,10 @@ const Accueil = () => {
                     (Notez que vous n'obtiendrez pas toujours le même code, puisqu'il est généré par un modèle de langage IA qui n'est pas 100 % déterministe et qui est mis à jour de temps en temps.)
                 </Paragraph>
 
-                <hr style={{margin: '50px 0' }} />
+                <hr style={{ margin: '50px 0' }} />
 
-                <Paragraph className="guide-description" style={{marginTop:"0px", fontSize:"25px"}}>
-                   Import d'un fichier unique 
+                <Paragraph className="guide-description" style={{ marginTop: "0px", fontSize: "25px" }}>
+                    Import d'un fichier unique
                 </Paragraph>
                 {/* Grille principale (2 colonnes) */}
                 <Row gutter={[32, 32]} style={{ marginTop: '50px' }}>
@@ -136,7 +136,7 @@ const Accueil = () => {
                         </div>
 
                         {/* Editeur CodeMirror6 */}
-                        <div className="guide-fake-editor">
+                        <div className="guide-fake-editor-single">
 
                             {/* Ligne 1 */}
                             <div className="guide-code-line">
@@ -421,10 +421,10 @@ const Accueil = () => {
 
 
 
-                <hr style={{margin: '50px 0' }} />
+                <hr style={{ margin: '50px 0' }} />
 
-                <Paragraph className="guide-description" style={{marginTop:"0px", fontSize:"25px"}}>
-                   Import d'un projet entier
+                <Paragraph className="guide-description" style={{ marginTop: "0px", fontSize: "25px" }}>
+                    Import d'un projet entier
                 </Paragraph>
                 {/* Grille principale (2 colonnes) */}
                 <Row gutter={[32, 32]} style={{ marginTop: '50px' }}>
@@ -500,126 +500,147 @@ const Accueil = () => {
                         </div>
 
                         {/* Editeur CodeMirror6 */}
-                        <div className="guide-fake-editor">
+                        <div className="guide-editor-container" style={{ position: 'relative' }}>
 
-                            {/* Ligne 1 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">000100</span>
-                                <span className="guide-line-content"><span className="cb-keyword">IDENTIFICATION DIVISION</span>.</span>
+                            {/* VOLET ARBORESCENCE FAKE */}
+                            <div className="guide-fake-sidebar">
+                                <div className="sidebar-project-title">
+                                    <FolderOpenOutlined style={{ marginRight: '8px', color: '#13c2c2' }} />
+                                    Tests Cobol 1 - Copie
+                                </div>
+                                <div className="sidebar-files-list">
+                                    <div className="sidebar-file-item"><span className="file-icon"><FileOutlined className="sidebar-file-icon" /></span> APPLICATION-01_COBOL_FACTUR01_...</div>
+                                    <div className="sidebar-file-item"><span className="file-icon"><FileOutlined className="sidebar-file-icon" /></span> FACTUR01_2019-10-25B.txt</div>
+                                    <div className="sidebar-file-item active"><span className="file-icon"><FileOutlined className="sidebar-file-icon" /></span> FACTUR01.COB</div>
+                                    <div className="sidebar-file-item"><span className="file-icon"><FileOutlined className="sidebar-file-icon" /></span> FACTUR03_2019-10-25.txt</div>
+                                    <div className="sidebar-file-item"><span className="file-icon"><FileOutlined className="sidebar-file-icon" /></span> FACTUR03_2019-10-28.txt</div>
+                                    <div className="sidebar-file-item"><span className="file-icon"><FileOutlined className="sidebar-file-icon" /></span> FACTUR03.COB</div>
+                                    <div className="sidebar-file-item"><span className="file-icon"><FileOutlined className="sidebar-file-icon" /></span> Sortie Exécution FACTUR01_2019-10-2...</div>
+                                    <div className="sidebar-file-item"><span className="file-icon"><FileOutlined className="sidebar-file-icon" /></span> Sortie Exécution FACTUR03_2019-10-2...</div>
+                                    <div className="sidebar-file-item"><span className="file-icon"><FileOutlined className="sidebar-file-icon" /></span> Sortie Exécution FACTUR03_2019-10-2...</div>
+                                </div>
                             </div>
+                            <div className="guide-fake-editor-projet">
 
-                            {/* Ligne 2 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">000200</span>
-                                <span className="guide-line-content"><span className="cb-keyword">PROGRAM-ID</span>. GESTION-STOCK.</span>
-                            </div>
+                                {/* Ligne 1 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">000100</span>
+                                    <span className="guide-line-content"><span className="cb-keyword">IDENTIFICATION DIVISION</span>.</span>
+                                </div>
 
-                            {/* Ligne 3 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">000300</span>
-                                <span className="guide-line-content"><span className="cb-keyword">AUTHOR</span>. PROJET-DECOBOLIZATOR.</span>
-                            </div>
+                                {/* Ligne 2 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">000200</span>
+                                    <span className="guide-line-content"><span className="cb-keyword">PROGRAM-ID</span>. GESTION-STOCK.</span>
+                                </div>
 
-                            {/* Ligne 4 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">000400</span>
-                                <span className="guide-line-content"><span className="cb-comment">*--------------------------------------------*</span></span>
-                            </div>
+                                {/* Ligne 3 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">000300</span>
+                                    <span className="guide-line-content"><span className="cb-keyword">AUTHOR</span>. PROJET-DECOBOLIZATOR.</span>
+                                </div>
 
-                            {/* Ligne 5 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">000500</span>
-                                <span className="guide-line-content"><span className="cb-comment">* CE PROGRAMME SIMULE UNE GESTION D'INVENTAIRE POUR TESTER LE    *</span></span>
-                            </div>
+                                {/* Ligne 4 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">000400</span>
+                                    <span className="guide-line-content"><span className="cb-comment">*--------------------------------------------*</span></span>
+                                </div>
 
-                            {/* Ligne 6 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">000600</span>
-                                <span className="guide-line-content"><span className="cb-comment">* PIPELINE DE PARSING ET DE TRADUCTION EN LANGAGE NATUREL.        *</span></span>
-                            </div>
+                                {/* Ligne 5 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">000500</span>
+                                    <span className="guide-line-content"><span className="cb-comment">* CE PROGRAMME SIMULE UNE GESTION D'INVENTAIRE POUR TESTER LE    *</span></span>
+                                </div>
 
-                            {/* Ligne 7 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">000700</span>
-                                <span className="guide-line-content"><span className="cb-comment">*--------------------------------------------*</span></span>
-                            </div>
+                                {/* Ligne 6 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">000600</span>
+                                    <span className="guide-line-content"><span className="cb-comment">* PIPELINE DE PARSING ET DE TRADUCTION EN LANGAGE NATUREL.        *</span></span>
+                                </div>
 
-                            {/* Ligne 8 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">000800</span>
-                                <span className="guide-line-content"></span>
-                            </div>
+                                {/* Ligne 7 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">000700</span>
+                                    <span className="guide-line-content"><span className="cb-comment">*--------------------------------------------*</span></span>
+                                </div>
 
-                            {/* Ligne 9 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">000900</span>
-                                <span className="guide-line-content"><span className="cb-keyword">ENVIRONMENT DIVISION</span>.</span>
-                            </div>
+                                {/* Ligne 8 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">000800</span>
+                                    <span className="guide-line-content"></span>
+                                </div>
 
-                            {/* Ligne 10 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">001000</span>
-                                <span className="guide-line-content"><span className="cb-keyword">CONFIGURATION SECTION</span>.</span>
-                            </div>
+                                {/* Ligne 9 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">000900</span>
+                                    <span className="guide-line-content"><span className="cb-keyword">ENVIRONMENT DIVISION</span>.</span>
+                                </div>
 
-                            {/* Ligne 11 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">001100</span>
-                                <span className="guide-line-content"><span className="cb-keyword">SPECIAL-NAMES</span>.</span>
-                            </div>
+                                {/* Ligne 10 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">001000</span>
+                                    <span className="guide-line-content"><span className="cb-keyword">CONFIGURATION SECTION</span>.</span>
+                                </div>
 
-                            {/* Ligne 12 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">001200</span>
-                                <span className="guide-line-content">    <span className="cb-keyword">DECIMAL-POINT IS COMMA</span>.</span>
-                            </div>
+                                {/* Ligne 11 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">001100</span>
+                                    <span className="guide-line-content"><span className="cb-keyword">SPECIAL-NAMES</span>.</span>
+                                </div>
 
-                            {/* Ligne 13 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">001300</span>
-                                <span className="guide-line-content"></span>
-                            </div>
+                                {/* Ligne 12 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">001200</span>
+                                    <span className="guide-line-content">    <span className="cb-keyword">DECIMAL-POINT IS COMMA</span>.</span>
+                                </div>
 
-                            {/* Ligne 14 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">001400</span>
-                                <span className="guide-line-content"><span className="cb-keyword">DATA DIVISION</span>.</span>
-                            </div>
+                                {/* Ligne 13 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">001300</span>
+                                    <span className="guide-line-content"></span>
+                                </div>
 
-                            {/* Ligne 15 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">001500</span>
-                                <span className="guide-line-content"><span className="cb-keyword">WORKING-STORAGE SECTION</span>.</span>
-                            </div>
+                                {/* Ligne 14 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">001400</span>
+                                    <span className="guide-line-content"><span className="cb-keyword">DATA DIVISION</span>.</span>
+                                </div>
 
-                            {/* Ligne 16 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">001600</span>
-                                <span className="guide-line-content"></span>
-                            </div>
+                                {/* Ligne 15 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">001500</span>
+                                    <span className="guide-line-content"><span className="cb-keyword">WORKING-STORAGE SECTION</span>.</span>
+                                </div>
 
-                            {/* Ligne 17 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">001700</span>
-                                <span className="guide-line-content"><span className="cb-comment">* DEFINITION DES CONSTANTES ET VARIABLES DE TRAVAIL</span></span>
-                            </div>
+                                {/* Ligne 16 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">001600</span>
+                                    <span className="guide-line-content"></span>
+                                </div>
 
-                            {/* Ligne 18 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">001800</span>
-                                <span className="guide-line-content"><span className='cb-var'>01 </span>WS-CONSTANTES.</span>
-                            </div>
+                                {/* Ligne 17 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">001700</span>
+                                    <span className="guide-line-content"><span className="cb-comment">* DEFINITION DES CONSTANTES ET VARIABLES DE TRAVAIL</span></span>
+                                </div>
 
-                            {/* Ligne 19 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">001900</span>
-                                <span className="guide-line-content">    <span className="cb-var">05 </span>WS-TAXE-TVA     <span className='cb-keyword'>PIC </span><span className='cb-var'>9(02)</span>V99 <span className='cb-keyword'>VALUE </span><span className='cb-var'>20,00</span>.</span>
-                            </div>
+                                {/* Ligne 18 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">001800</span>
+                                    <span className="guide-line-content"><span className='cb-var'>01 </span>WS-CONSTANTES.</span>
+                                </div>
 
-                            {/* Ligne 20 */}
-                            <div className="guide-code-line">
-                                <span className="guide-line-number">002000</span>
-                                <span className="guide-line-content">    <span className="cb-var">05 </span>WS-SEUIL-ALERTE <span className='cb-keyword'>PIC </span><span className='cb-var'>9(03)    </span><span className='cb-keyword'>VALUE </span><span className='cb-var'>10</span>.</span>
+                                {/* Ligne 19 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">001900</span>
+                                    <span className="guide-line-content">    <span className="cb-var">05 </span>WS-TAXE-TVA     <span className='cb-keyword'>PIC </span><span className='cb-var'>9(02)</span>V99 <span className='cb-keyword'>VALUE </span><span className='cb-var'>20,00</span>.</span>
+                                </div>
+
+                                {/* Ligne 20 */}
+                                <div className="guide-code-line">
+                                    <span className="guide-line-number">002000</span>
+                                    <span className="guide-line-content">    <span className="cb-var">05 </span>WS-SEUIL-ALERTE <span className='cb-keyword'>PIC </span><span className='cb-var'>9(03)    </span><span className='cb-keyword'>VALUE </span><span className='cb-var'>10</span>.</span>
+                                </div>
                             </div>
                         </div>
                     </Col>
