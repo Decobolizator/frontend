@@ -31,6 +31,7 @@ Elle communique avec le microservice API Gateway.
 
 ## Structure
 
+```
 frontend/
 ├── src/
 │   ├── assets/                  # Images .png et leurs formats vectoriels .svg
@@ -61,6 +62,7 @@ frontend/
 │   ├── index.css                # Style global
 │   └── main.jsx                 # Point d'entrée de l'app, lance App.jsx
 └── index.html                   # Fichier html racine
+```
 
 ---
 
