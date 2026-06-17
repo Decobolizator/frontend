@@ -1,42 +1,66 @@
-/* PAGE */
+.page-wrapper.light-mode {
+    --bg-page: transparent;
+    --bg-window: #ffffff;
+    --color-title: rgba(0, 0, 0, 0.85);
+    --color-sub: rgba(0, 0, 0, 0.55);
+    --btn-ret-bg: #ffffff;
+    --btn-ret-text: #008B8B;
+    --btn-ret-border: #008B8B;
+    --toast-bg: #FFFFFF;
+    --toast-title: rgb(0, 0, 0);
+    --toast-sub: rgb(0, 0, 0);
+}
+
+.page-wrapper.dark-mode {
+    --bg-page: #252C2E;
+    --bg-window: #000000;
+    --color-title: #008B8B;
+    --color-sub: #577e7e;
+    --btn-ret-bg: #000000;
+    --btn-ret-text: #D5D5D5;
+    --btn-ret-border: #4f5d61;
+    --toast-bg: #1f2426;
+    --toast-title: #D5D5D5;
+    --toast-sub: rgba(218, 218, 218, 0.65);
+}
+
 .page-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 64px);
     width: 100%;
-  
+    background-color: var(--bg-page);
+    transition: background-color 0.3s ease;
 }
 
-/* WINDOW */
 .erreur-wrapper { 
     width: 50%;
     padding: 40px;
-    background-color: #ffffff !important;
+    background-color: var(--bg-window) !important;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+    transition: background-color 0.3s ease;
 }
 
-/* STYLES */
 .erreur-403-title {
     font-family: 'Inter', sans-serif;
     margin: 0 !important;
     font-size: 30px !important;
-    color: rgba(0,0,0,0.85) !important;
+    color: var(--color-title) !important;
 }
 
 .erreur-403-sub {
     font-family: 'Inter', sans-serif;
     font-size: 18px !important;
-    color: rgba(0,0,0,0.55) !important;
+    color: var(--color-sub) !important;
     margin-top: 10px !important;
 }
 
-/* BOUTONS */
 .btn-connexion {
     background-color: #008B8B !important;
     color : #ffffff ;
@@ -45,48 +69,58 @@
     width: 120px;
     height: 36px;
     margin-top: 8px;
+    border: none !important;
 }
 
 .btn-retour {
-    background-color: #ffffff !important;
-    color : #008B8B !important;
+    background-color: var(--btn-ret-bg) !important;
+    color : var(--btn-ret-text) !important;
+    border: 1px solid var(--btn-ret-border) !important; 
     font-size: clamp(0.85rem, 1vw, 1rem);
     font-family: 'Inter', sans-serif;
     width: 120px;
     height: 36px;
     margin-top: 8px;
-    border: 1px solid #008B8B;
+    transition: all 0.3s ease;
 }
 
 .custom-toast-deco {
-  position: fixed !important;
-  top: 80px !important;
-  right: 0px !important;
-  left: auto !important;
-  width: 35% !important;
+    position: fixed !important;
+    top: 80px !important;
+    right: 0px !important;
+    left: auto !important;
+    width: 35% !important;
 }
-
-
-/* Supprime le centrage par défaut d'Ant Design */
 .custom-toast-deco .ant-message-notice {
-  text-align: right !important;
+    text-align: right !important;
 }
 
-/* Style du block blanc */
 .custom-toast-deco .ant-message-notice-content {
-  background: #FFFFFF !important;
-  padding: 32px 100px 32px 32px !important;
-  border-radius: 2px !important;
-  text-align: left;
+    background: var(--toast-bg) !important;
+    padding: 32px 100px 32px 32px !important;
+    border-radius: 2px !important;
+    text-align: left;
+    transition: background 0.3s ease;
 }
-/* Aligne verticalement la coche verte avec le titre */
+
+.custom-toast-deco .toast-title-text {
+    color: var(--toast-title) !important;
+}
+.custom-toast-deco .toast-sub-text {
+    color: var(--toast-sub) !important;
+}
+
 .custom-toast-deco .ant-message-custom-content {
-  display: flex !important;
-  align-items: flex-start !important;
+    display: flex !important;
+    align-items: flex-start !important;
 }
-/* Style de l'icône de succès */
+
 .custom-toast-deco .ant-message-custom-content .anticon {
-  font-size: 20px !important;
-  margin-right: 10px !important;
-  margin-top: 0px;
+    font-size: 20px !important;
+    margin-right: 10px !important;
+    margin-top: 0px;
+}
+
+.custom-toast-deco.dark-toast .ant-message-notice-content {
+    border: 1px solid #3a4447 !important;
 }

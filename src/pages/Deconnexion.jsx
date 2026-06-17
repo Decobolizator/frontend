@@ -1,17 +1,18 @@
 import React from 'react';
 import { Typography, Button, Space, message } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './Erreur403.css'
+import './Erreur403.css';
 
 const { Title, Paragraph } = Typography;
 
 const Deconnexion = () => {
     const navigate = useNavigate();
     const { logout } = useAuth();
+    const { darkMode } = useOutletContext(); 
 
     return (
-        <div className='page-wrapper'>
+        <div className={`page-wrapper ${darkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className='erreur-wrapper'>
                 <img src="/src/assets/deconnexion.svg" alt="Logo" />
 
@@ -32,7 +33,6 @@ const Deconnexion = () => {
                     <Button
                         type="primary"
                         className='btn-connexion'
-
                         onClick={() => {
                             navigate('/');                    
                             logout();
@@ -41,19 +41,17 @@ const Deconnexion = () => {
                                 icon: null,
                                 content: (
                                     <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
-                                        <strong style={{ fontSize: '16px', color: 'rgb(0, 0, 0)', lineHeight: '24px', fontWeight: 600 }}>
+                                        <strong className="toast-title-text" style={{ fontSize: '16px', lineHeight: '24px', fontWeight: 600 }}>
                                             Vous avez été déconnecté avec succès!
                                         </strong>
-                                        <span style={{ fontSize: '14px', color: 'rgb(0, 0, 0)', marginTop: '4px' }}>
+                                        <span className="toast-sub-text" style={{ fontSize: '14px', marginTop: '4px' }}>
                                             Reconnectez vous pour profiter de plus d’options.
                                         </span>
                                     </div>
                                 ),
                                 duration: 3,
-                                className: 'custom-toast-deco',
-                            })
-
-                                ;
+                                className: `custom-toast-deco ${darkMode ? 'dark-toast' : 'light-toast'}`,
+                            });
                         }}
                     >
                         Déconnexion

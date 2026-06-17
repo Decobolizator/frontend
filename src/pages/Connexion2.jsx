@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, Typography, message } from 'antd';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import './Connexion2.css';
@@ -12,8 +12,8 @@ const Connexion2 = () => {
     const location = useLocation();
     const [form] = Form.useForm();
     const { login } = useAuth();
+    const { darkMode } = useOutletContext();
 
-    // On récupère l'email transmis de manière transparente par la page précédente
     const emailUser = location.state?.email;
 
     const onFinish = async (values) => {
@@ -23,31 +23,28 @@ const Connexion2 = () => {
         }
 
         try {
-            // Validation finale sur la route de double authentification
             const response = await axios.post('http://localhost:4000/auth/verify-2fa', {
                 email: emailUser,
                 codeValidation: values.codeValidation
             });
 
             const { token, user } = response.data;
-            
-            // Initialisation globale de la session utilisateur connectée
             login(user, token); 
 
             message.open({
                 type: 'success',
                 content: (
-                  <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
-                    <strong style={{ fontSize: '16px', color: 'rgb(0, 0, 0)', fontWeight: 600 }}>
-                      Vous êtes connecté !
-                    </strong>
-                    <span style={{ fontSize: '14px', color: 'rgb(0, 0, 0)', marginTop: '4px' }}>
-                      Bienvenue {user?.firstName} {user?.lastName}
-                    </span>
-                  </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
+                        <strong className="toast-title-text" style={{ fontSize: '16px', fontWeight: 600 }}>
+                            Vous êtes connecté !
+                        </strong>
+                        <span className="toast-sub-text" style={{ fontSize: '14px', marginTop: '4px' }}>
+                            Bienvenue {user?.firstName} {user?.lastName}
+                        </span>
+                    </div>
                 ),
                 duration: 2,
-                className: 'custom-toast-right',
+                className: `custom-toast-right ${darkMode ? 'dark-toast' : 'light-toast'}`,
             });
             
             setTimeout(() => { navigate('/'); }, 1500);
@@ -60,7 +57,7 @@ const Connexion2 = () => {
     };
 
     return (
-        <div className="confirmation-page-wrapper">
+        <div className={`confirmation-page-wrapper ${darkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className="confirmation-white-box">
                 <Title level={1} className="confirmation-title">Confirmation</Title>
                 <Paragraph className="confirmation-subtitle">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Typography, message } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { MailOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './Connexion2.css';
@@ -11,6 +11,7 @@ const Oubli = () => {
     const navigate = useNavigate();
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
+    const { darkMode } = useOutletContext();
 
     const onFinish = async (values) => {
         setLoading(true);
@@ -28,13 +29,13 @@ const Oubli = () => {
     };
 
     return (
-        <div className="confirmation-page-wrapper">
+        <div className={`confirmation-page-wrapper ${darkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className="confirmation-white-box" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
                 <div style={{ width: '100%', textAlign: 'left', marginBottom: '16px', marginTop: '-8px' }}>
                     <Title level={1} className="confirmation-title" style={{ textAlign: 'left', margin: 0, paddingBottom: '8px' }}>
                         Réinitialisation
                     </Title>
-                    <Paragraph className="confirmation-subtitle" style={{ textAlign: 'left', margin: 0, color: 'rgba(0, 0, 0, 0.45)' }}>
+                    <Paragraph className="confirmation-subtitle" style={{ textAlign: 'left', margin: 0 }}>
                         Entrez votre adresse mail associée à votre compte pour recevoir un lien de réinitialisation de votre mot de passe.
                     </Paragraph>
                 </div>
@@ -56,7 +57,7 @@ const Oubli = () => {
                         ]}
                     >
                         <Input 
-                            prefix={<MailOutlined style={{ color: 'rgba(0,0,0,.25)', marginRight: '4px' }} />}
+                            prefix={<MailOutlined className="input-icon" style={{ marginRight: '4px' }} />}
                             placeholder="exemple@entreprise.fr" 
                             className="confirmation-input" 
                             disabled={loading}
