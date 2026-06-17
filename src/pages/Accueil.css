@@ -15,6 +15,7 @@
   --guide-non-active-tab-txt: rgba(0, 0, 0, 0.85);
   --guide-result-txt: rgba(0, 0, 0, 0.75);
   --guide-step-bg: #FFFFFF;
+  --guide-volet-bg: #CFF5FF;
 }
 
 .accueil-container.dark-mode {
@@ -34,6 +35,8 @@
   --guide-non-active-tab-txt: rgba(255, 255, 255, 0.85);
   --guide-result-txt: rgba(255, 255, 255, 0.75);
   --guide-step-bg: #000000;
+  --guide-volet-bg: #004152;
+
 
 }
 
@@ -171,8 +174,80 @@
   border-color: #08979C;
 }
 
+/* Conteneur global */
+.guide-editor-container {
+  display: flex;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  /* Pour garder les bords arrondis si besoin */
+}
+
+/* Le volet d'arborescence (Sidebar) */
+.guide-fake-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  background-color: var(--guide-volet-bg);
+  padding: 15px 0;
+  z-index: 10;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Titre du projet dans la sidebar */
+.sidebar-project-title {
+  padding: 0 15px 12px 15px;
+  font-weight: bold;
+  color: #08979C;
+  font-size: 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06)
+}
+
+/* Liste des fichiers */
+.sidebar-files-list {
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+/* Un item de fichier */
+.sidebar-file-item {
+  padding: 8px 15px;
+  font-size: 13px;
+  color: var(--accueil-txt);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: default;
+}
+
+.sidebar-file-item .file-icon {
+  margin-right: 6px;
+}
+
+/* Fichier sélectionné/actif (FACTUR01.COB) */
+.sidebar-file-item.active {
+  background-color: rgba(19, 194, 194, 0.2);
+  color: #08979C;
+  border-radius: 4px;
+  margin: 2px 10px; 
+  padding: 6px 10px;
+}
+
+.sidebar-file-icon {
+  color: var(--accueil-txt);
+}
+
+.sidebar-file-item.active .sidebar-file-icon {
+  color: #08979C;
+}
+
 /* Le conteneur global du faux éditeur */
-.guide-fake-editor {
+.guide-fake-editor-single {
   width: 100%;
   height: 495px;
   background-color: var(--guide-window-bg);
@@ -186,6 +261,23 @@
   user-select: none;
 }
 
+/* Le conteneur global du faux éditeur */
+.guide-fake-editor-projet {
+  width: 100%;
+  height: 495px;
+  background-color: var(--guide-window-bg);
+  border: 1px solid #d9d9d9;
+  border-radius: 16px;
+  font-family: Monospace, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 15px;
+  overflow: hidden !important;
+  user-select: none;
+  padding-left: 45% !important;
+  box-sizing: border-box;
+}
+
 /* Une ligne de code */
 .guide-code-line {
   display: flex;
@@ -194,10 +286,9 @@
 
 /* Colonne du numéro de ligne */
 .guide-line-number {
-  color: var(--guide-line-number) ;
+  color: var(--guide-line-number);
   width: 60px;
   text-align: left;
-  border-left: 1px solid #e8e8e8;
   padding-left: 5px;
   margin-right: 10px;
   flex-shrink: 0;
@@ -234,8 +325,7 @@
 
 /* NAV ONGLET */
 .guide-custom-tabs .ant-tabs-nav {
-  margin-bottom: -0.5px !important;
-  /* Force les onglets à coller à la zone du dessous */
+  margin-bottom: -1px !important; /* Force les onglets à coller à la zone du dessous */
   margin-right: 15px !important;
   z-index: 2;
 }
@@ -361,7 +451,6 @@
 
 .guide-number-badge .guide-number-badge:hover {
   transform: scale(1.1);
-  /* Petit effet sympa au survol */
 }
 
 /* Partie responsive */
