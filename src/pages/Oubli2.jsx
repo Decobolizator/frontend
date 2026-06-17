@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Typography, message } from 'antd';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, useOutletContext } from 'react-router-dom';
 import { LockOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './Connexion2.css';
@@ -12,6 +12,8 @@ const Oubli2 = () => {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const [searchParams] = useSearchParams();
+    const { darkMode } = useOutletContext();
+    
     const resetId = Number(searchParams.get('id'));
     const resetToken = searchParams.get('token');
 
@@ -41,13 +43,13 @@ const Oubli2 = () => {
     };
 
     return (
-        <div className="confirmation-page-wrapper">
+        <div className={`confirmation-page-wrapper ${darkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className="confirmation-white-box" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
                 <div style={{ width: '100%', textAlign: 'left', marginBottom: '16px', marginTop: '-8px' }}>
                     <Title level={1} className="confirmation-title" style={{ textAlign: 'left', margin: 0, paddingBottom: '8px' }}>
                         Réinitialisation
                     </Title>
-                    <Paragraph className="confirmation-subtitle" style={{ textAlign: 'left', margin: 0, color: 'rgba(0, 0, 0, 0.45)' }}>
+                    <Paragraph className="confirmation-subtitle" style={{ textAlign: 'left', margin: 0 }}>
                         Veuillez choisir votre nouveau mot de passe. Il doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre.
                     </Paragraph>
                 </div>
@@ -73,8 +75,8 @@ const Oubli2 = () => {
                         ]}
                     >
                         <Input.Password 
-                            prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)', marginRight: '4px' }} />}
-                            placeholder="••••••••" 
+                            prefix={<LockOutlined className="input-icon" style={{ marginRight: '4px' }} />}
+                            placeholder="********" 
                             className="confirmation-input" 
                             disabled={loading}
                         />
@@ -97,8 +99,8 @@ const Oubli2 = () => {
                         ]}
                     >
                         <Input.Password 
-                            prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)', marginRight: '4px' }} />}
-                            placeholder="••••••••" 
+                            prefix={<LockOutlined className="input-icon" style={{ marginRight: '4px' }} />}
+                            placeholder="********" 
                             className="confirmation-input" 
                             disabled={loading}
                         />
