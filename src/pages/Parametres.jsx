@@ -203,7 +203,7 @@ const HistoriqueTab = () => {
     useEffect(() => {
         const fetchHistorique = async () => {
             try {
-                const response = await instance.get('/projects');
+                const response = await instance.get('/project');
                 console.log('premier projet:', response.data[0]);
                 setProjets(response.data);
             } catch (error) {
@@ -237,7 +237,7 @@ const HistoriqueTab = () => {
 
     const handleSupprimer = async (projetId) => {
         try {
-            await instance.delete(`/projects/${projetId}`);
+            await instance.delete(`/project/${projetId}`);
             setProjets(prev => prev.filter(p => p.id !== projetId));
             message.success('Projet supprimé.');
         } catch (error) {
@@ -294,7 +294,8 @@ const HistoriqueTab = () => {
                     // Nom du fichier COBOL source, sinon fallback sur le nom du projet
 
                     const fichierCobol = projet.files?.find(f => f.file_type === 'cobol_source');
-                    const nomFichier = fichierCobol?.file_name ?? projet.name;
+                    const cheminComplet = fichierCobol?.file_name ?? projet.name;
+                    const nomFichier = cheminComplet.includes('/') ? cheminComplet.split('/')[0] : cheminComplet;
                     const modeFichier = projet.description
 
                     // Date de référence : last_processed_at > updated_at > created_at

@@ -38,6 +38,7 @@ function buildTreeFromFiles(fileList) {
                     name: part,
                     path: accPath,
                     file,
+                    textContent: file.textContent,
                 };
             } else {
                 if (!current.children[part]) {
@@ -193,7 +194,7 @@ const Convertisseur = () => {
         const loadProject = async () => {
             try {
                 setIsScanning(true);
-                const response = await instance.get(`/projects/${projectId}`);
+                const response = await instance.get(`/project/${projectId}`);
                 const projet = response.data;
 
                 console.log("Données du projet récupérées :", projet);
@@ -216,11 +217,8 @@ const Convertisseur = () => {
 
                     // Pour la map traducteur : on prend translation en priorité
                     // Pour la map tuteur : on prend role en priorité
-                    const texteTraduction = r.translation || "Aucun résultat de traduction disponible.";
-                    const texteTuteur = r.role || "Aucune explication disponible.";
-
-                    traductionMap[simpleName] = texteTraduction;
-                    tuteurMap[simpleName] = texteTuteur;
+                    traductionMap[simpleName] = r.translation || "Aucun résultat de traduction disponible.";
+                    tuteurMap[simpleName] = r.role || "Aucune explication disponible.";
                 }
 
                 const hasTraduction = Object.keys(traductionMap).length > 0;
@@ -240,6 +238,7 @@ const Convertisseur = () => {
                         .map(f => ({
                             webkitRelativePath: f.file_name,
                             name: f.file_name.split('/').pop(),
+                            textContent: f.content,
                         }));
 
                     if (fakeFiles.length > 1) {
@@ -252,14 +251,14 @@ const Convertisseur = () => {
                         // ====================================================
                         setMode('single');
                         const firstResult = projet.results?.[0];
-if (firstResult) {
-    setTraductionResult(
-        firstResult.translation || "Aucun résultat de traduction disponible."
-    );
-    setTuteurResult(
-        firstResult.role || "Aucune explication disponible."
-    );
-}
+                        if (firstResult) {
+                            setTraductionResult(
+                                firstResult.translation || "Aucun résultat de traduction disponible."
+                            );
+                            setTuteurResult(
+                                firstResult.role || "Aucune explication disponible."
+                            );
+                        }
                     }
                 } else {
                     // Fichier unique ou projet — Sans aucun résultat en BDD
@@ -340,13 +339,17 @@ if (firstResult) {
 
     // Lecture du contenu texte de chaque file du projet
 
-    const readFileAsText = (file) =>
-        new Promise((resolve, reject) => {
+    const readFileAsText = (file) => {
+        if (file && typeof file.textContent === 'string') {
+            return Promise.resolve(file.textContent);
+        }
+        return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = (ev) => resolve(ev.target.result);
             reader.onerror = reject;
             reader.readAsText(file);
         });
+    };
 
     // Analyse mode single file
 
