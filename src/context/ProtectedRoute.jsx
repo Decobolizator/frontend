@@ -6,7 +6,8 @@ const ProtectedRoute = ({ children }) => {
 
     if (loading) return null; // on attend pour voir si un user est connecté 
 
-    if (!isAuthenticated) return <Navigate to="/erreur403" replace />;
+    if (!isAuthenticated) 
+        return <Navigate to="/erreur403" replace />;
 
     return children;
 };

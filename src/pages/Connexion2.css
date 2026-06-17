@@ -21,6 +21,41 @@
   flex-direction: column;
 }
 
+
+/* Position du message */
+.custom-toast-right {
+  position: fixed !important;
+  top: 80px !important;
+  right: 0px !important;
+  left: auto !important;
+  width: 40% !important;
+}
+
+/* Supprime le centrage par défaut d'Ant Design */
+.custom-toast-right .ant-message-notice {
+  text-align: right !important;
+}
+
+/* Style du block blanc */
+.custom-toast-right .ant-message-notice-content {
+  background: #FFFFFF !important;
+  padding: 32px 200px 32px 32px !important;
+  border-radius: 2px !important;
+  text-align: left;
+}
+/* Aligne verticalement la coche verte avec le titre */
+.custom-toast-right .ant-message-custom-content {
+  display: flex !important;
+  align-items: flex-start !important;
+}
+/* Style de l'icône de succès */
+.custom-toast-right .ant-message-custom-content .anticon {
+  font-size: 20px !important;
+  margin-right: 10px !important;
+  margin-top: 0px;
+}
+
+
 .confirmation-title {
   font-weight: 700 !important;
   font-size: 38px !important;

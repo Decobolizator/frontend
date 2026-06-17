@@ -1,33 +1,68 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Typography, Row, Col, Button, Input, Tabs } from 'antd';
 import { UploadOutlined, DownloadOutlined, ReloadOutlined } from '@ant-design/icons';
-import { NavLink } from 'react-router-dom';
+import { useOutletContext, useLocation } from 'react-router-dom';
 const { Title, Paragraph } = Typography;
 const { TextArea } = Input;
 import './convertisseur.css';
 import CodeMirror from '@uiw/react-codemirror';
-import { EditorView } from '@codemirror/view';
 import { StreamLanguage } from '@codemirror/language';
-import { useOutletContext } from 'react-router-dom';
 // On importe directement la grammaire COBOL officielle cachée dans les paquets legacy !
 import { cobol } from '@codemirror/legacy-modes/mode/cobol';
 import instance from "../services/HttpClient";
 import { oneDark } from '@codemirror/theme-one-dark';
 
 const Convertisseur = () => {
-
     const { darkMode } = useOutletContext();
+    const location = useLocation();
+
+    // 1. CORRECTION : On renomme l'élément extrait du state pour éviter le conflit
+    const { projectId, projectName, fileName: initialFileName } = location.state ?? {};
 
     // LES ETATS EN MEMOIRE
     const [cobolCode, setCobolCode] = useState(''); // code inséré ds panneau gauche
-    const [fileName, setFileName] = useState('code_manuel.cbl'); // nom fichier analysé
-    const [analysisCounts, setAnalysisCounts] = useState({}); // nb analyse d'un fichier
     const [traductionResult, setTraductionResult] = useState(''); // résultat de l'onglet Traducteur
     const [tuteurResult, setTuteurResult] = useState('');         // résultat de l'onglet Tuteur
     const [activeTab, setActiveTab] = useState('traducteur'); // onglet du mode traduction activé
     const fileInputRef = useRef(null); // ref pour le bouton d'import
     const [isScanning, setIsScanning] = useState(false); // si en cours de chargement des résultats
-    const [rawResponse, setRawResponse] = useState(null); // stocke reponse brut
+
+    // 2. CORRECTION : Déclaration UNIQUE de fileName et analysisCounts
+    const [fileName, setFileName] = useState(initialFileName || 'code_manuel.cbl');
+    const [analysisCounts, setAnalysisCounts] = useState({});
+
+    useEffect(() => {
+        if (!projectId) return;
+
+        const loadProject = async () => {
+            try {
+                setIsScanning(true);
+                const response = await instance.get(`/projects/${projectId}`);
+                const projet = response.data;
+
+                const nomDuFichierSource = fileName || 'Fichier inconnu';
+
+                setCobolCode(`* Fichier source associé : ${nomDuFichierSource}\n* Veuillez ré-importer ce fichier pour modifier le code.`);
+
+                // 3. CORRECTION : Remplacement de setResultCode par les bons états correspondants
+                const translation = projet.content?.translation || projet.content?.role || '';
+                if (translation) {
+                    setTraductionResult(translation);
+                    setTuteurResult(translation);
+                } else {
+                    const nonDispo = "Aucun résultat disponible pour ce projet.";
+                    setTraductionResult(nonDispo);
+                    setTuteurResult(nonDispo);
+                }
+            } catch (err) {
+                console.error("Erreur chargement projet :", err);
+            } finally {
+                setIsScanning(false);
+            }
+        };
+
+        loadProject();
+    }, [projectId, fileName]);
 
     // LES FONCTIONS
     // Importer
@@ -43,26 +78,22 @@ const Convertisseur = () => {
         }
     };
 
-    // Traduction / Tuteur
-
     const handleAnalyse = async () => {
         if (!cobolCode) return;
 
         try {
             if (activeTab === 'traducteur') setTraductionResult('');
             else setTuteurResult('');
-            setRawResponse(null);
             setIsScanning(true);
 
             let finalFileName = fileName;
             const currentCount = analysisCounts[fileName] || 0;
             if (currentCount > 0) {
-                // On sépare le nom et l'extension 
                 const lastDotIndex = fileName.lastIndexOf('.');
                 if (lastDotIndex !== -1) {
                     const namePart = fileName.substring(0, lastDotIndex);
                     const extPart = fileName.substring(lastDotIndex);
-                    finalFileName = `${namePart}(${currentCount})${extPart}`; // ex: input(1).cbl
+                    finalFileName = `${namePart}(${currentCount})${extPart}`;
                 } else {
                     finalFileName = `${fileName}(${currentCount})`;
                 }
@@ -82,18 +113,12 @@ const Convertisseur = () => {
                 userContext: operation === 'analyze-project' ? 'Traduction de fichier' : 'Explication de fichier'
             };
 
-            const response = await instance.post("/translation/input", payload, {
-                headers: {
-                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzIiwiZW1haWwiOiJqYWNrLnNwYXJyb3dAZXBmZWR1LmZyIiwiaWF0IjoxNzgxNjI5NzQ4fQ.OfBWNBuMVZFDBlDRykeWGGMxxcfkVE2Vk90sSjfSToM"
-                }
-            });
+            const response = await instance.post("/translation/input", payload);
 
             if (response.data && response.data.files && response.data.files.length > 0) {
-                setRawResponse(response.data);
-
                 const firstFile = response.data.files[0];
-
-                const resultText = activeTab === 'traducteur' ? firstFile.translation : firstFile.role;
+                // 4. CORRECTION : Déclaration manquante de resultText récupérée depuis la réponse API
+                const resultText = firstFile.translation || firstFile.role;
 
                 if (resultText) {
                     if (activeTab === 'traducteur') setTraductionResult(resultText);
@@ -119,48 +144,40 @@ const Convertisseur = () => {
         }
     };
 
-
     // Exporter
-const handleExport = async () => {
-  if (activeTab === 'traducteur') {
-    try {
-      const response = await instance.post('/translation/chunks', {
-        cobolCode,
-        fileName,
-      }, {
-        headers: {
-          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzIiwiZW1haWwiOiJqYWNrLnNwYXJyb3dAZXBmZWR1LmZyIiwiaWF0IjoxNzgxNjI5NzQ4fQ.OfBWNBuMVZFDBlDRykeWGGMxxcfkVE2Vk90sSjfSToM"
+    const handleExport = async () => {
+        if (activeTab === 'traducteur') {
+            try {
+                const response = await instance.post('/translation/chunks', {
+                    cobolCode,
+                    fileName,
+                });
+                const json = JSON.stringify(response.data, null, 2);
+                const blob = new Blob([json], { type: 'application/json' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `${fileName.replace(/\.[^.]+$/, '')}_chunks.json`;
+                a.click();
+            } catch (err) {
+                console.error('Erreur export chunks :', err);
+            }
+        } else {
+            // 5. CORRECTION : Exportation basée sur l'état actif actuel (tuteurResult)
+            const blob = new Blob([tuteurResult], { type: 'text/plain;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'explication.txt';
+            a.click();
         }
-      })
-      const json = JSON.stringify(response.data, null, 2)
-      const blob = new Blob([json], { type: 'application/json' })
-      const a = document.createElement('a')
-      a.href = URL.createObjectURL(blob)
-      a.download = `${fileName.replace(/\.[^.]+$/, '')}_chunks.json`
-      a.click()
-    } catch (err) {
-      console.error('Erreur export chunks :', err)
-    }
-  } else {
-    const blob = new Blob([resultCode], { type: 'text/plain;charset=utf-8' })
-    const a = document.createElement('a')
-    a.href = URL.createObjectURL(blob)
-    a.download = 'explication.txt'
-    a.click()
-  }
-}
+    };
 
-    // Onglets pour panneau de droite (Traducteur / Tuteur)
     const tabItems = [
         { key: 'traducteur', label: 'Traducteur' },
         { key: 'tuteur', label: 'Tuteur' },
     ];
 
     return (
-        // LE VISUEL
         <div className={`convertisseur-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-
-            {/* Titre et description de la page */}
             <Title level={1} className='title'>
                 Convertisseur COBOL
             </Title>
@@ -168,14 +185,10 @@ const handleExport = async () => {
                 Importer ou écrire dans la fenêtre de gauche le code COBOL à traduire puis appuyer sur le bouton traduire.
             </Paragraph>
 
-            {/* Grille principale (2 colonnes) */}
             <Row gutter={[32, 32]}>
-
                 {/* PANNEAU GAUCHE : Code COBOL */}
                 <Col xs={24} lg={12}>
-                    {/* Ligne des 2 boutons */}
                     <div className="bouton-box">
-                        {/* Bouton Importer */}
                         <label>
                             <input
                                 type="file"
@@ -188,14 +201,13 @@ const handleExport = async () => {
                                 type="primary"
                                 icon={<UploadOutlined />}
                                 size="large"
-                                onClick={() => fileInputRef.current.click()} // Déclenche le clic sur l'input caché
+                                onClick={() => fileInputRef.current.click()}
                                 className='bouton clair'
                             >
                                 Importer
                             </Button>
                         </label>
 
-                        {/* Bouton Analyser */}
                         <Button
                             type="primary"
                             icon={<ReloadOutlined />}
@@ -207,9 +219,7 @@ const handleExport = async () => {
                         </Button>
                     </div>
 
-                    {/* Editeur CodeMirror6 */}
                     <div className='editeur'>
-                        {/* La Barre de Scan Animée */}
                         {isScanning && <div className="scanner-line" />}
 
                         <CodeMirror
@@ -217,7 +227,6 @@ const handleExport = async () => {
                             height="492px"
                             onChange={(value) => setCobolCode(value)}
                             extensions={[
-                                // Charge la vraie coloration COBOL officielle
                                 StreamLanguage.define(cobol),
                                 darkMode ? oneDark : [],
                             ]}
@@ -227,7 +236,6 @@ const handleExport = async () => {
 
                 {/* PANNEAU DROITE : Sortie Traducteur / Tuteur */}
                 <Col xs={24} lg={12}>
-                    {/* Onglets Traducteur / Tuteur */}
                     <div className="tab-box">
                         <Tabs
                             activeKey={activeTab}
@@ -238,7 +246,6 @@ const handleExport = async () => {
                         />
                     </div>
 
-                    {/* Zone de texte Résultat */}
                     <div style={{ position: 'relative', marginBottom: '10px' }}>
                         <TextArea
                             rows={18}
@@ -258,7 +265,6 @@ const handleExport = async () => {
                         />
                     </div>
 
-                    {/* Bouton Exporter */}
                     <div className='exporter-box'>
                         <Button
                             type="primary"

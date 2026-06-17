@@ -11,16 +11,30 @@ const Inscription = () => {
     const { darkMode } = useOutletContext();
     const onFinish = async (values) => {
         try {
-            const response = await axios.post('http://votre-api.com/register', values);
-            console.log('Succès:', response.data);
+
+            const FullName = values.Fullname.trim().split(' ');
+            const firstName = FullName[0] || '';
+            const lastName = FullName.slice(1).join(' ') || '';
+
+            const user = {
+                email: values.Email,
+                password: values.Password,
+                firstName: firstName,
+                lastName: lastName,
+            };
+
+            const response = await axios.post('http://localhost:4000/auth/register', user);
+
+            console.log('Inscription réussie !', response.data);
+            navigate('/login'); // Redirige vers la page de connexion après succès
         } catch (error) {
-            console.error('Erreur lors de l\'inscription:', error);
+            console.error("Erreur lors de l'inscription:", error.response?.data || error.message);
         }
     };
 
     return (
         <div className={`content-wrapper ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-            
+
             {/* Section Gauche */}
             <div className='left-section'>
 
@@ -66,11 +80,10 @@ const Inscription = () => {
                             <Input placeholder="Alice Martin" />
                         </Form.Item>
 
-                        <Form.Item label="Nom de l'entreprise" name="Company" rules={[{ required: true }]}>
-                            <Input placeholder="EPF Engineering School" />
-                        </Form.Item>
-
-                        <Form.Item label="Mot de passe" name="Password" rules={[{ required: true }]}>
+                        <Form.Item label="Mot de passe" name="Password" rules={[
+                            { required: true },
+                            { min: 8, message: 'Le mot de passe doit contenir au moins 8 caractères' }
+                        ]}>
                             <Input.Password placeholder="example2mdp" />
                         </Form.Item>
 
@@ -82,7 +95,7 @@ const Inscription = () => {
                                 { required: true },
                                 ({ getFieldValue }) => ({
                                     validator(_, value) {
-                                        if (!value || getFieldValue('password') === value) return Promise.resolve();
+                                        if (!value || getFieldValue('Password') === value) return Promise.resolve();
                                         return Promise.reject(new Error('Les mots de passe ne correspondent pas'));
                                     },
                                 }),

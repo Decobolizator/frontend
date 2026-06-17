@@ -34,8 +34,8 @@ const Deconnexion = () => {
                         className='btn-connexion'
 
                         onClick={() => {
-                            logout(); 
-                            
+                            navigate('/');                    
+                            logout();
                             message.open({
                                 type: 'success',
                                 icon: null,
@@ -45,15 +45,15 @@ const Deconnexion = () => {
                                             Vous avez été déconnecté avec succès!
                                         </strong>
                                         <span style={{ fontSize: '14px', color: 'rgb(0, 0, 0)', marginTop: '4px' }}>
-                                            Reconnectez vous pour profiter de plus d’options. 
+                                            Reconnectez vous pour profiter de plus d’options.
                                         </span>
                                     </div>
                                 ),
                                 duration: 3,
                                 className: 'custom-toast-deco',
                             })
-                            
-                            ; navigate('/');
+
+                                ;
                         }}
                     >
                         Déconnexion

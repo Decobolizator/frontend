@@ -47,6 +47,7 @@ const Connexion2 = () => {
                   </div>
                 ),
                 duration: 2,
+                className: 'custom-toast-right',
             });
             
             setTimeout(() => { navigate('/'); }, 1500);
