@@ -7,6 +7,7 @@
   --conv-active-line-border: rgba(101, 250, 255, 0.70);
   --conv-non-active-tab-bg: #FAFAFA;
   --conv-non-active-tab-txt: rgba(0, 0, 0, 0.85);
+  --conv-volet-projet-bg: #CFF5FF;
 }
 
 .convertisseur-container.dark-mode {
@@ -18,6 +19,7 @@
   --conv-active-line-border: rgba(44, 248, 255, 0.70);
   --conv-non-active-tab-bg: #484848;
   --conv-non-active-tab-txt: rgba(255, 255, 255, 0.85);
+  --conv-volet-projet-bg: #004152;
 }
 
 
@@ -77,6 +79,9 @@
   border-radius: 16px;
   overflow: hidden;
   min-height: 492px;
+  flex: 1 1 100%;
+  width: 100%;
+  min-width: 0;
 }
 .editeur .cm-editor {
   background-color: var(--conv-window-bg) !important;
@@ -227,4 +232,142 @@
   100% {
     top: 0%;
   }
+}
+
+/* --- VARIATION POUR MODE PROJET --- */
+.zone-edition-wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 492px;
+  align-items: stretch;
+}
+
+/* Base du volet ouvert */
+.convertisseur-container .projet-arborescence {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 320px; 
+  height: 492px;
+  background-color: var(--conv-volet-projet-bg);
+  border: none !important;
+  border-radius: 16px 0 0 16px; 
+  overflow-y: auto;
+  padding: 15px;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.05);
+  transition: width 0.2s ease, padding 0.2s ease; 
+}
+
+/* état fermé */
+.convertisseur-container .projet-arborescence.is-collapsed {
+  width: 45px; 
+  padding: 15px 0;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 16px 0 0 16px;
+}
+
+/* Fermé : centre icône seule */
+.mini-tree-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Header quand le volet est ouvert (btn dossier + nom projet) */
+.tree-close-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  font-weight: bold;
+  color: #08979C !important;
+}
+
+.tree-header-title {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Ajustement éditeur code mirror 6 */
+
+/* éditeur s'écarte pr laisser la place au volet qd ouvert */
+.editeur-tree-open .cm-editor {
+  padding-left: 320px;
+  transition: padding-left 0.2s ease;
+}
+
+/* éditeur reprend presque tout son espace qd volet fermé */
+.editeur-tree-collapsed .cm-editor {
+  padding-left: 45px;
+  transition: padding-left 0.2s ease;
+}
+
+/* force CodeMirror à garder ses coins arrondis externes */
+.convertisseur-container .editeur .cm-editor {
+  border-radius: 16px;
+}
+
+/* Composants internes arbres (nodes) */
+
+.tree-container {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  user-select: none;
+}
+
+.tree-row {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  gap: 8px;
+  color: var(--conv-title);
+  transition: none !important; 
+}
+
+.tree-row:hover {
+  background-color: rgba(19, 194, 194, 0.1);
+  transition: none !important;
+}
+
+.tree-row-active {
+  background-color: rgba(19, 194, 194, 0.2) !important;
+  color: #08979C !important;
+  font-weight: bold;
+  transition: none !important;
+}
+
+.tree-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resultat-filename {
+  position: absolute;
+  top: -20px;
+  left: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #08979C;
+  color: #ffffff;
+  padding: 2px 10px;
+  border-radius: 4px 4px 0 0;
+  z-index: 1;
+}
+
+.tree-close-header,
+.tree-close-header .tree-header-title,
+.tree-close-header .anticon {
+  color: #08979C !important;
 }
