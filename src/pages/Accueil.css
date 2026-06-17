@@ -423,30 +423,30 @@
   transition: transform 0.2s ease;
 }
 
-.step-1 {
+.step-importer {
   top: -15px;
   left: -15px;
 }
 
-.step-2 {
+.step-tab {
   position: absolute;
   top: -15px;
   right: 177px;
 }
 
-.step-3 {
-  top: -15px;
-  left: -15px;
-}
-
-.step-4 {
+.step-resultats {
   bottom: -12px;
   left: -12px;
 }
 
-.step-5 {
+.step-exporter {
   bottom: -15px;
   left: -15px;
+}
+
+.step-volet {
+  top:0px;
+  left: 0px;
 }
 
 .guide-number-badge .guide-number-badge:hover {

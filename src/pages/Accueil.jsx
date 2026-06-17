@@ -86,7 +86,7 @@ const Accueil = () => {
                                     trigger="hover"
                                     placement="topLeft"
                                 >
-                                    <div className="guide-number-badge step-1">1</div>
+                                    <div className="guide-number-badge step-importer">1</div>
                                 </Popover>
 
                                 <Button
@@ -121,7 +121,7 @@ const Accueil = () => {
                                     trigger="hover"
                                     placement="topLeft"
                                 >
-                                    <div className="guide-number-badge step-3">3</div>
+                                    <div className="guide-number-badge step-importer">3</div>
                                 </Popover>
 
                                 <Button
@@ -274,7 +274,7 @@ const Accueil = () => {
                                 trigger="hover"
                                 placement="topLeft"
                             >
-                                <div className="guide-number-badge step-2">2</div>
+                                <div className="guide-number-badge step-tab">2</div>
                             </Popover>
 
                             <Tabs
@@ -299,7 +299,7 @@ const Accueil = () => {
                                 trigger="hover"
                                 placement="bottomLeft"
                             >
-                                <div className="guide-number-badge step-4">4</div>
+                                <div className="guide-number-badge step-resultats">4</div>
                             </Popover>
 
                             <div className="guide-fake-translation">
@@ -396,7 +396,7 @@ const Accueil = () => {
                                     trigger="hover"
                                     placement="topLeft"
                                 >
-                                    <div className="guide-number-badge step-5">5</div>
+                                    <div className="guide-number-badge step-exporter">5</div>
                                 </Popover>
 
                                 <Button
@@ -463,7 +463,7 @@ const Accueil = () => {
                                     trigger="hover"
                                     placement="topLeft"
                                 >
-                                    <div className="guide-number-badge step-1">1</div>
+                                    <div className="guide-number-badge step-importer">1</div>
                                 </Popover>
 
                                 <Button
@@ -480,12 +480,12 @@ const Accueil = () => {
                             <div className="guide-step-wrapper">
                                 {/* popup survol */}
                                 <Popover
-                                    title="Étape 3 : Analyser votre code"
+                                    title="Étape 4 : Analyser votre code"
                                     content="Cliquez sur le bouton d’analyse pour lancer l’analyse dans le mode sélectionné."
                                     trigger="hover"
                                     placement="topLeft"
                                 >
-                                    <div className="guide-number-badge step-3">3</div>
+                                    <div className="guide-number-badge step-importer">4</div>
                                 </Popover>
 
                                 <Button
@@ -505,6 +505,17 @@ const Accueil = () => {
                             {/* VOLET ARBORESCENCE FAKE */}
                             <div className="guide-fake-sidebar">
                                 <div className="sidebar-project-title">
+                                    <Popover
+                                    title="Étape 2 : Parcourer les fichiers de votre projet"
+                                    content={<div>
+                                        Cliquez sur l'icône pour ouvrir/fermer votre dossier,<br />
+                                        et cliquez sur un fichier pour accéder à son contenu et son analyse.
+                                    </div>}
+                                    trigger="hover"
+                                    placement="topLeft"
+                                >
+                                    <div className="guide-number-badge step-volet">2</div>
+                                </Popover>
                                     <FolderOpenOutlined style={{ marginRight: '8px', color: '#13c2c2' }} />
                                     Tests Cobol 1 - Copie
                                 </div>
@@ -520,8 +531,8 @@ const Accueil = () => {
                                     <div className="sidebar-file-item"><span className="file-icon"><FileOutlined className="sidebar-file-icon" /></span> Sortie Exécution FACTUR03_2019-10-2...</div>
                                 </div>
                             </div>
-                            <div className="guide-fake-editor-projet">
 
+                            <div className="guide-fake-editor-projet">
                                 {/* Ligne 1 */}
                                 <div className="guide-code-line">
                                     <span className="guide-line-number">000100</span>
@@ -651,7 +662,7 @@ const Accueil = () => {
                         <div className="guide-tab-box" style={{ position: 'relative' }}>
                             {/* popup survol */}
                             <Popover
-                                title="Étape 2 : Choisissez le mode d’analyse : "
+                                title="Étape 3 : Choisissez le mode d’analyse : "
                                 content={<div>
                                     Traducteur pour traduire votre code COBOL en langage naturel,<br />
                                     Tuteur pour recevoir une explication du rôle de votre code dans un projet.
@@ -659,7 +670,7 @@ const Accueil = () => {
                                 trigger="hover"
                                 placement="topLeft"
                             >
-                                <div className="guide-number-badge step-2">2</div>
+                                <div className="guide-number-badge step-tab">3</div>
                             </Popover>
 
                             <Tabs
@@ -677,14 +688,14 @@ const Accueil = () => {
                         <div style={{ position: 'relative', marginBottom: '10px' }}>
                             {/* popup survol */}
                             <Popover
-                                title="Étape 4 : Consulter le résultat"
+                                title="Étape 5 : Consulter le résultat"
                                 content={<div>
                                     Le résultat de l’analyse sera affiché dans la zone de sortie.
                                 </div>}
                                 trigger="hover"
                                 placement="bottomLeft"
                             >
-                                <div className="guide-number-badge step-4">4</div>
+                                <div className="guide-number-badge step-resultats">5</div>
                             </Popover>
 
                             <div className="guide-fake-translation">
@@ -776,12 +787,12 @@ const Accueil = () => {
                             <div className="guide-step-wrapper">
                                 {/* popup survol */}
                                 <Popover
-                                    title="Étape 5 : Exporter votre code"
+                                    title="Étape 6 : Exporter votre code"
                                     content="La traduction est exportable sous forme de fichier JSON."
                                     trigger="hover"
                                     placement="topLeft"
                                 >
-                                    <div className="guide-number-badge step-5">5</div>
+                                    <div className="guide-number-badge step-exporter">6</div>
                                 </Popover>
 
                                 <Button
