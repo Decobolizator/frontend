@@ -1,60 +1,67 @@
 import { useState } from 'react';
 import { Tabs, Avatar, Button, Input, Modal, message } from 'antd';
-import { UserOutlined, MailOutlined, BankOutlined, LockOutlined, UploadOutlined, HistoryOutlined } from '@ant-design/icons';
+import { UserOutlined, MailOutlined, LockOutlined, UploadOutlined, HistoryOutlined } from '@ant-design/icons';
 import { useOutletContext } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import axios from 'axios';
 import './Parametres.css';
 
 const { TabPane } = Tabs;
 
-// Données temporaires
-const utilisateur = {
-    prenom: 'Alice',
-    nom: 'Martin',
-    email: 'alice.martin@example.fr',
-    entreprise: 'EPF Engineering School',
-    mdp: '123',
-    photoProfil: "https://tse4.mm.bing.net/th/id/OIP.hXWwNOQw15ZVWKlMs-xv0wHaFQ?pid=Api&P=0&h=180",
-};
-
-// Onglet Mon Compte
 const MonCompteTab = () => {
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
-    const { user } = useAuth();
-
-    // États pour les inputs
+    const { user, token } = useAuth();
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    // gestion photo profil
-    const [photo, setPhoto] = useState(utilisateur.photoProfil);
 
-
-    // vérif ancien mdp (A CHANGER APRES QUAND ON AURA ACCES A BDD)
-    const handleVerify = () => {
-        if (oldPassword === utilisateur.mdp) {
+    // Vérification ancien mdp
+    const handleVerify = async () => {
+        if (!oldPassword) {
+            return message.error("Veuillez saisir votre mot de passe actuel");
+        }
+        try {
+            const tokenStocke = localStorage.getItem('token');
+            await axios.post(
+                'http://localhost:4000/auth/verify-password',
+                { password: oldPassword },
+                { headers: { Authorization: `Bearer ${tokenStocke}` } }
+            );
             setModal1Open(false);
             setModal2Open(true);
-            setOldPassword(''); // Reset
-        } else {
-            message.error("Ancien mot de passe incorrect");
+            setOldPassword('');
+        } catch (error) {
+            console.error(error);
+            const errorMsg = error.response?.data?.message || "Ancien mot de passe incorrect";
+            message.error(errorMsg);
         }
     };
 
-    // enregistrer le nouveau MDP ( A CHANGER APRES AVOIR ACCES A BDD)
-    const handleSave = () => {
+    // Enregistrement nouveau mot de passe
+    const handleSave = async () => {
         if (newPassword !== confirmPassword) {
             return message.error("Les mots de passe ne correspondent pas");
         }
-        if (newPassword.length < 3) {
-            return message.error("Mot de passe trop court");
+        if (newPassword.length < 8) {
+            return message.error("Le mot de passe doit contenir au moins 8 caractères");
         }
-
-        message.success("Mot de passe modifié avec succès");
-        setModal2Open(false);
-        setNewPassword('');
-        setConfirmPassword('');
+        try {
+            const tokenStocke = localStorage.getItem('token');
+            await axios.post(
+                'http://localhost:4000/auth/update-password',
+                { newPassword },
+                { headers: { Authorization: `Bearer ${tokenStocke}` } }
+            );
+            message.success("Mot de passe modifié avec succès");
+            setModal2Open(false);
+            setNewPassword('');
+            setConfirmPassword('');
+        } catch (error) {
+            console.error(error);
+            const errorMsg = error.response?.data?.message || "Impossible de modifier le mot de passe";
+            message.error(errorMsg);
+        }
     };
 
     return (
@@ -64,14 +71,12 @@ const MonCompteTab = () => {
             <div className="profile-photo-row">
                 <Avatar
                     size={56}
-                    src={user?.photoProfil || undefined} // Si une photo existe, elle s'affiche
+                    src={user?.photoProfil || undefined}
                     style={{ backgroundColor: '#08979C', fontSize: '1.2rem', fontFamily: 'Akatab, sans-serif' }}
                 >
-                    {/* Si pas de photo, le composant affiche les initiales automatiquement */}
-                    {!user?.photoProfil && `${user.firstName?.charAt(0).toUpperCase()}${user.lastName?.charAt(0).toUpperCase()}`}
+                    {!user?.photoProfil && `${user?.firstName?.charAt(0).toUpperCase()}${user?.lastName?.charAt(0).toUpperCase()}`}
                 </Avatar>
 
-                {/* Gestion import de photo */}
                 <div className="photo-info">
                     <span className="photo-label">Photo de profil</span>
                     <span className="photo-hint">La photo aide vos collègues à vous reconnaître.</span>
@@ -93,7 +98,7 @@ const MonCompteTab = () => {
                     <span className="info-label">Prénom Nom</span>
                 </div>
                 <div className="info-body">
-                    <span className="info-value">{user.firstName} {user.lastName}</span>
+                    <span className="info-value">{user?.firstName} {user?.lastName}</span>
                 </div>
             </div>
 
@@ -103,10 +108,9 @@ const MonCompteTab = () => {
                     <span className="info-label">Email</span>
                 </div>
                 <div className="info-body">
-                    <span className="info-value">{user.email}</span>
+                    <span className="info-value">{user?.email}</span>
                 </div>
             </div>
-
 
             <div className="info-block">
                 <div className="info-header">
@@ -125,7 +129,6 @@ const MonCompteTab = () => {
                 </Button>
             </div>
 
-            {/* modal verification ancien mdp */}
             <Modal
                 title="Vérification de sécurité"
                 open={modal1Open}
@@ -143,7 +146,6 @@ const MonCompteTab = () => {
                 </div>
             </Modal>
 
-            {/* Modal 2 nouveau mdp */}
             <Modal
                 title="Modifier le mot de passe"
                 open={modal2Open}
@@ -172,7 +174,6 @@ const MonCompteTab = () => {
     );
 };
 
-// onglet Historique
 const HistoriqueTab = () => {
     return (
         <div className="account-card">
@@ -193,7 +194,6 @@ const HistoriqueTab = () => {
     );
 };
 
-// Page principale 
 const Parametres = () => {
     const { darkMode } = useOutletContext();
     return (
