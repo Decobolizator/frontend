@@ -7,6 +7,7 @@
   --guide-title: #000000;
   --guide-descr: rgba(0, 0, 0, 0.55);
   --guide-window-bg: #FFFFFF;
+  --guide-line-number: #0808ff;
   --guide-keyword: #770088;
   --guide-comment: #994400;
   --guide-var: #397f63;
@@ -25,9 +26,10 @@
   --guide-title: #D5D5D5;
   --guide-descr: rgba(218, 218, 218, 0.55);
   --guide-window-bg: #000000;
-  --guide-keyword: #770088;
-  --guide-comment: #994400;
-  --guide-var: #397f63;
+  --guide-line-number: #D5D5D5;
+  --guide-keyword: #a968c7;
+  --guide-comment: #717a81;
+  --guide-var: #d78614;
   --guide-non-active-tab-bg: #484848;
   --guide-non-active-tab-txt: rgba(255, 255, 255, 0.85);
   --guide-result-txt: rgba(255, 255, 255, 0.75);
@@ -192,7 +194,7 @@
 
 /* Colonne du numéro de ligne */
 .guide-line-number {
-  color: #0808ff;
+  color: var(--guide-line-number) ;
   width: 60px;
   text-align: left;
   border-left: 1px solid #e8e8e8;
