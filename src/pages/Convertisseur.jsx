@@ -147,7 +147,8 @@ const Convertisseur = () => {
     // Contexte
     const { darkMode } = useOutletContext();
     const location = useLocation();
-    const { projectId, projectName, fileName: initialFileName } = location.state ?? {};
+    const { projectId, projectName, fileName: initialFileName, sourceContent } = location.state ?? {};
+
 
     // Ref
     const fileInputRef = useRef(null); // ref pour le bouton d'import
@@ -183,6 +184,10 @@ const Convertisseur = () => {
     const rootFolderNode = projectRoot ? sortedEntries(projectRoot)[0] ?? null : null;
 
     useEffect(() => {
+        if (sourceContent) {
+            setCobolCode(sourceContent);
+        }
+
         if (!projectId) return;
 
         const loadProject = async () => {
@@ -191,19 +196,78 @@ const Convertisseur = () => {
                 const response = await instance.get(`/projects/${projectId}`);
                 const projet = response.data;
 
-                const nomDuFichierSource = fileName || 'Fichier inconnu';
+                console.log("Données du projet récupérées :", projet);
 
-                setCobolCode(`* Fichier source associé : ${nomDuFichierSource}\n* Veuillez ré-importer ce fichier pour modifier le code.`);
-
-                const translation = projet.content?.translation || projet.content?.role || '';
-                if (translation) {
-                    setTraductionResult(translation);
-                    setTuteurResult(translation);
-                } else {
-                    const nonDispo = "Aucun résultat disponible pour ce projet.";
-                    setTraductionResult(nonDispo);
-                    setTuteurResult(nonDispo);
+                // Panneau gauche — code source COBOL
+                if (!sourceContent) {
+                    const fichierSource = projet.files?.find(f => f.file_type === 'cobol_source');
+                    if (fichierSource?.content) {
+                        setCobolCode(fichierSource.content);
+                    }
                 }
+
+                // Construit les maps résultats par nom de fichier
+                const traductionMap = {};
+                const tuteurMap = {};
+
+                for (const r of projet.results ?? []) {
+                    const simpleName = r.file_name?.split('/').pop();
+                    if (!simpleName) continue;
+
+                    // Pour la map traducteur : on prend translation en priorité
+                    // Pour la map tuteur : on prend role en priorité
+                    const texteTraduction = r.translation || "Aucun résultat de traduction disponible.";
+                    const texteTuteur = r.role || "Aucune explication disponible.";
+
+                    traductionMap[simpleName] = texteTraduction;
+                    tuteurMap[simpleName] = texteTuteur;
+                }
+
+                const hasTraduction = Object.keys(traductionMap).length > 0;
+                const hasTuteur = Object.keys(tuteurMap).length > 0;
+
+                if (hasTraduction || hasTuteur) {
+                    // Mode projet : on injecte les résultats dans projectResults
+                    setProjectResults({
+                        traducteur: traductionMap,
+                        tuteur: tuteurMap,
+                    });
+                    setMode('project');
+
+                    // Reconstruit l'arbre depuis les fichiers stockés en BDD
+                    const fakeFiles = (projet.files ?? [])
+                        .filter(f => f.file_type === 'cobol_source')
+                        .map(f => ({
+                            webkitRelativePath: f.file_name,
+                            name: f.file_name.split('/').pop(),
+                        }));
+
+                    if (fakeFiles.length > 1) {
+                        const tree = buildTreeFromFiles(fakeFiles);
+                        setProjectRoot(tree);
+                        setProjectFiles(fakeFiles);
+                    } else {
+                        // ====================================================
+                        // FIX ICI : Fichier unique — mode single (Projet avec résultats)
+                        // ====================================================
+                        setMode('single');
+                        const firstResult = projet.results?.[0];
+if (firstResult) {
+    setTraductionResult(
+        firstResult.translation || "Aucun résultat de traduction disponible."
+    );
+    setTuteurResult(
+        firstResult.role || "Aucune explication disponible."
+    );
+}
+                    }
+                } else {
+                    // Fichier unique ou projet — Sans aucun résultat en BDD
+                    setMode('single');
+                    setTraductionResult("Aucun résultat de traduction disponible pour ce projet.");
+                    setTuteurResult("Aucune explication disponible pour ce projet.");
+                }
+
             } catch (err) {
                 console.error("Erreur chargement projet :", err);
             } finally {
@@ -212,7 +276,8 @@ const Convertisseur = () => {
         };
 
         loadProject();
-    }, [projectId, fileName]);
+    }, [projectId, sourceContent]);
+
 
     // LES FONCTIONS
 
@@ -322,9 +387,13 @@ const Convertisseur = () => {
 
             const response = await instance.post("/translation/input", payload);
 
+            console.log("envoi a IA ", response)
+
             if (response.data && response.data.files && response.data.files.length > 0) {
                 const firstFile = response.data.files[0];
                 const resultText = activeTab === 'traducteur' ? firstFile.translation : firstFile.role;
+
+                console.log("REPONSE ????", response.data)
 
                 if (resultText) {
                     if (activeTab === 'traducteur') setTraductionResult(resultText);

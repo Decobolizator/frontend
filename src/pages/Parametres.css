@@ -9,6 +9,7 @@
   --login-subtitle: rgba(0, 0, 0, 0.55);
   --cadre-color : #ffffff;
   --inactive-tab:#f7f2f2;
+  --border: #d4f0f2; 
   --info: rgba(8, 151, 156, 0.28)
 
 }
@@ -19,6 +20,7 @@
   --login-bg: #252C2E;
   --login-text: #D5D5D5;
   --inactive-tab:#9b9898;
+  --border: #000000;
   --cadre-color:#000000;
   --login-subtitle:rgba(218, 218, 218, 0.55);
   --info: #D9D9D9;
@@ -56,18 +58,19 @@
 .moncompte-tabs .ant-tabs-nav {
   margin-bottom: -1px !important;
   z-index: 2 !important;
+  margin-left: 1%;
 }
 .moncompte-tabs .ant-tabs-tab {
   font-family: 'Roboto', sans-serif ;
   padding: 8px 16px;
   background-color: var(--inactive-tab)  !important; 
   color: #000000 !important;
-  border-radius: 10%;
-  border: 1px solid #d4f0f2 !important;
+  border-radius: 8px 8px 0 0 !important;
+  border: 1px solid var(--border) !important;
 
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0%;
-  margin-right: -11% !important;
+  margin-right: -12% !important;
 }
 .moncompte-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
 color: #08979C !important;
@@ -75,11 +78,11 @@ color: #08979C !important;
 }
 .moncompte-tabs .ant-tabs-tab-active {
   background: var(--cadre-color)!important;
-  border-radius: 10%;
+
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0%;
-  border: 1px solid #d4f0f2 !important; 
-  border-bottom: 1px solid #ffffff !important; 
+  border: 1px solid var(--border)!important; 
+  border-bottom: 1px solid var(--cadre-color) !important; 
   z-index: 6 !important; 
   position: relative;
 
@@ -96,8 +99,7 @@ color: #08979C !important;
 .account-card {
   background: var(--cadre-color);
   border-radius: 12px;
-  border: 1px solid #d4f0f2; 
-  border-top-left-radius: 0; 
+  border: 1px solid var(--border); 
   padding: clamp(24px, 3vw, 40px) clamp(20px, 3vw, 40px);
   max-width: 700px;
   min-width: 100%;

@@ -1,5 +1,6 @@
 import { Form, Input, Button, Layout, Typography, Space, Switch, Row, Col } from 'antd'; // Ajout de Row et Col ici
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import axios from 'axios';
 const { Title, Paragraph } = Typography;
 import { useOutletContext } from 'react-router-dom';
@@ -9,6 +10,7 @@ const Inscription = () => {
     const navigate = useNavigate();
     const [form] = Form.useForm();
     const { darkMode } = useOutletContext();
+    const [emailError, setEmailError] = useState('');
     const onFinish = async (values) => {
         try {
 
@@ -28,7 +30,16 @@ const Inscription = () => {
             console.log('Inscription réussie !', response.data);
             navigate('/login'); // Redirige vers la page de connexion après succès
         } catch (error) {
-            console.error("Erreur lors de l'inscription:", error.response?.data || error.message);
+            if (error.response?.status === 409) {
+                form.setFields([
+                    {
+                        name: 'Email',
+                        errors: ['Cette adresse email est déjà utilisée.'],
+                    },
+                ]);
+            } else {
+                console.error("Erreur lors de l'inscription:", error.response?.data || error.message);
+            }
         }
     };
 
@@ -80,11 +91,56 @@ const Inscription = () => {
                             <Input placeholder="Alice Martin" />
                         </Form.Item>
 
-                        <Form.Item label="Mot de passe" name="Password" rules={[
-                            { required: true },
-                            { min: 8, message: 'Le mot de passe doit contenir au moins 8 caractères' }
-                        ]}>
-                            <Input.Password placeholder="example2mdp" />
+                        <Form.Item label="Mot de passe" name="Password"
+                            rules={[
+                                { required: true, message: 'Veuillez saisir un mot de passe' },
+
+                                ({ getFieldValue }) => ({
+                                    validator(_, value) {
+                                        if (!value) {
+                                            return Promise.resolve();
+                                        }
+
+                                        if (value.length < 8) {
+                                            return Promise.reject(
+                                                new Error('Le mot de passe doit contenir au minimum 8 caractères, avec au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial. Pour des raisons de sécurité, il ne doit pas contenir votre prénom ni votre nom.')
+                                            );
+                                        }
+
+
+                                        // 1. Vérification des critères de caractères
+                                        const hasUppercase = /[A-Z]/.test(value);
+                                        const hasLowercase = /[a-z]/.test(value);
+                                        const hasNumber = /[0-9]/.test(value);
+                                        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>_+\-=\[\]\\\/]/.test(value);
+
+                                        if (!hasUppercase || !hasLowercase || !hasNumber || !hasSpecialChar) {
+                                            return Promise.reject(
+                                                new Error('Le mot de passe doit contenir au minimum 8 caractères, avec au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial. Pour des raisons de sécurité, il ne doit pas contenir votre prénom ni votre nom.')
+                                            );
+                                        }
+
+                                        // 2. Vérification de l'exclusion du Prénom / Nom
+                                        const completName = getFieldValue('Fullname') || '';
+                                        const parts = completName.trim().split(' ');
+                                        const firstname = parts[0]?.toLowerCase() || '';
+                                        const lastname = parts.slice(1).join(' ')?.toLowerCase() || '';
+                                        const passwordLower = value.toLowerCase();
+
+                                        // On ne bloque que si l'utilisateur a tapé quelque chose dans le nom ET que c'est dans le mdp
+                                        if (firstname && firstname.length > 2 && passwordLower.includes(firstname)) {
+                                            return Promise.reject(new Error('Pour des raisons de sécurité, le mot de passe ne doit pas contenir votre prénom.'));
+                                        }
+                                        if (lastname && lastname.length > 2 && passwordLower.includes(lastname)) {
+                                            return Promise.reject(new Error('Pour des raisons de sécurité, le mot de passe ne doit pas contenir votre nom.'));
+                                        }
+
+                                        return Promise.resolve();
+                                    },
+                                }),
+                            ]}
+                        >
+                            <Input.Password placeholder="Exemple@2Mdp" />
                         </Form.Item>
 
                         <Form.Item
@@ -101,7 +157,7 @@ const Inscription = () => {
                                 }),
                             ]}
                         >
-                            <Input.Password placeholder="example2mdp" />
+                            <Input.Password placeholder="Example2mdp" />
                         </Form.Item>
 
                         <Form.Item>

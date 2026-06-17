@@ -22,7 +22,6 @@ const timeAgo = (dateStr) => {
         const hours = Math.floor(minutes / 60);
     if (hours < 24) return `Il y a ${hours} heure${hours > 1 ? 's' : ''}`;
         const days = Math.floor(hours / 24);
-    
         return `Il y a ${days} jour${days > 1 ? 's' : ''}`;
 };
 
@@ -92,32 +91,17 @@ const MonCompteTab = () => {
             <div className="profile-photo-row">
                 <Avatar
                     size={56}
-                    src={user?.photoProfil || undefined}
                     style={{ backgroundColor: '#08979C', fontSize: '1.2rem', fontFamily: 'Akatab, sans-serif' }}
                 >
-                    {!user?.photoProfil && `${user?.firstName?.charAt(0).toUpperCase()}${user?.lastName?.charAt(0).toUpperCase()}`}
+                    { `${user?.firstName?.charAt(0).toUpperCase()}${user?.lastName?.charAt(0).toUpperCase()}`}
                 </Avatar>
 
                 <div className="photo-info">
-                    <span className="photo-label">Photo de profil</span>
-                    <span className="photo-hint">
-                        La photo aide vos collègues à vous reconnaître.
-                    </span>
+                    <span className="photo-label">Profil de {user?.firstName} {user?.lastName}</span>
+               
                 </div>
 
-                <input
-                    type="file"
-                    id="upload-photo"
-                    style={{ display: 'none' }}
-                    accept="image/*"
-                />
-                <Button
-                    icon={<UploadOutlined />}
-                    className="btn-importer"
-                    onClick={() => document.getElementById('upload-photo').click()}
-                >
-                    Importer
-                </Button>
+              
             </div>
 
             {/* Prénom Nom */}
@@ -153,12 +137,6 @@ const MonCompteTab = () => {
                         Modifier
                     </Button>
                 </div>
-            </div>
-
-            <div className="confirm-row">
-                <Button type="primary" className="btn-confirmer">
-                    Confirmer
-                </Button>
             </div>
 
             <Modal
@@ -242,12 +220,17 @@ const HistoriqueTab = () => {
     const handleReprendre = (projet) => {
         const fichierCobol = projet.files?.find(f => f.file_type === 'cobol_source');
         const nomFichier = fichierCobol?.file_name ?? projet.name;
+        const contenuSource = fichierCobol?.content ?? '';
+
+        console.log("Nom du fichier :", nomFichier);
+    console.log("Contenu source (COBOL) :", contenuSource);
 
         navigate('/convertisseur', {
             state: {
                 projectId: projet.id,
                 projectName: projet.name,
-                fileName: nomFichier
+                fileName: nomFichier,
+                sourceContent: contenuSource
             },
         });
     };
@@ -336,7 +319,7 @@ const HistoriqueTab = () => {
                             <div className="info-body">
 
                                 <span className="info-value" style={{ marginLeft: "2%" }}>
-                                    {modeFichier} : <span style={{ fontStyle: "italic", color:"#008cff" }}>{nomFichier}</span>
+                                    {modeFichier} : <span style={{ fontStyle: "italic", color: "#008cff" }}>{nomFichier}</span>
                                 </span>
                                 <Button
                                     className="btn-modifier"
@@ -360,19 +343,33 @@ const HistoriqueTab = () => {
 
 const Parametres = () => {
     const { darkMode } = useOutletContext();
+    const [activeTab, setActiveTab] = useState('compte');
+
+    const headerTexts = {
+        compte: {
+            title: "Mon Compte",
+            subtitle: "Votre compte est associé à votre email de votre entreprise, il n’est donc pas possible de changer une partie de vos informations personnelles pour parer tout problème d’intégrité. "
+        },
+        historique: {
+            title: "Historique",
+            subtitle: "Vous pourrez trouver ici toutes les traductions que vous avez efféctué. Effectuez des recherches ou ajoutez des filtres pour trouver de manières plus efficaces ce que vous souhaitez. "
+        }
+    };
 
     return (
         <div className={`moncompte-page ${darkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className="moncompte-header">
-                <h1 className="page-title">Mon Compte</h1>
+                <h1 className="page-title">{headerTexts[activeTab].title}</h1>
                 <p className="page-subtitle">
-                    Votre compte est associé à l'email de votre entreprise. Il n'est donc pas
-                    possible de modifier certaines informations personnelles afin de garantir
-                    l'intégrité de vos accès.
+                    {headerTexts[activeTab].subtitle}
                 </p>
             </div>
 
-            <Tabs defaultActiveKey="compte" className="moncompte-tabs">
+            <Tabs
+                activeKey={activeTab}
+                onChange={(key) => setActiveTab(key)}
+                className="moncompte-tabs"
+            >
                 <TabPane tab="Mon compte" key="compte">
                     <MonCompteTab />
                 </TabPane>
