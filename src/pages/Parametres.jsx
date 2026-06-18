@@ -65,6 +65,10 @@ const MonCompteTab = () => {
         if (newPassword.length < 8) {
             return message.error("Le mot de passe doit contenir au moins 8 caractères");
         }
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).+$/;
+        if (!passwordRegex.test(newPassword)) {
+            return message.error("Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial");
+        }
         try {
             const tokenStocke = localStorage.getItem('token');
             await axios.post(

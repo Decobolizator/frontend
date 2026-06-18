@@ -69,8 +69,8 @@ const Oubli2 = () => {
                             { required: true, message: 'Veuillez saisir votre nouveau mot de passe' },
                             { min: 8, message: 'Le mot de passe doit contenir au moins 8 caractères' },
                             {
-                                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
-                                message: 'Le mot de passe doit contenir une majuscule, une minuscule et un chiffre'
+                                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).+$/,
+                                message: 'Le mot de passe doit contenir une majuscule, une minuscule, un chiffre et un caractère spécial'
                             }
                         ]}
                     >
