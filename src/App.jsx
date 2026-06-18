@@ -20,7 +20,7 @@ import Oubli2 from './pages/Oubli2';
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Accueil />} />
