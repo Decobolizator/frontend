@@ -4,7 +4,7 @@ import { UploadOutlined, DownloadOutlined, ReloadOutlined, FileOutlined, FolderO
 import { useOutletContext, useLocation } from 'react-router-dom';
 const { Title, Paragraph } = Typography;
 const { TextArea } = Input;
-import './convertisseur.css';
+import './Convertisseur.css';
 import CodeMirror from '@uiw/react-codemirror';
 import { StreamLanguage } from '@codemirror/language';
 // On importe directement la grammaire COBOL officielle 

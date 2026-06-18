@@ -7,7 +7,7 @@ import { UploadOutlined, DownloadOutlined, ReloadOutlined, FolderOpenOutlined, F
 import { NavLink } from 'react-router-dom';
 const { Header, Content } = Layout;
 import { useOutletContext } from 'react-router-dom';
-import './accueil.css';
+import './Accueil.css';
 
 const Accueil = () => {
 
