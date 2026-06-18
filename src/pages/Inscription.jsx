@@ -6,6 +6,7 @@ const { Title, Paragraph } = Typography;
 import { useOutletContext } from 'react-router-dom';
 import triceratops from '../assets/triceratops.svg';
 import './Inscription.css'
+import HttpClient from '../services/HttpClient'
 
 const Inscription = () => {
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ const Inscription = () => {
                 lastName: lastName,
             };
 
-            const response = await axios.post('http://localhost:4000/auth/register', user);
+            const response = await HttpClient.post('/auth/register', user);
 
             console.log('Inscription réussie !', response.data);
             navigate('/login'); // Redirige vers la page de connexion après succès

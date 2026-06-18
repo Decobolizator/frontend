@@ -4,6 +4,7 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { MailOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './Connexion2.css';
+import HttpClient from '../services/HttpClient'
 
 const { Title, Paragraph } = Typography;
 
@@ -16,7 +17,7 @@ const Oubli = () => {
     const onFinish = async (values) => {
         setLoading(true);
         try {
-            const response = await axios.post('http://localhost:4000/auth/password/forgot', {
+            const response = await HttpClient.post('/auth/password/forgot', {
                 email: values.email
             });
             message.success(response.data.message || "Lien de réinitialisation envoyé !");

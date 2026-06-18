@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams, useOutletContext } from 'react-router-dom
 import { LockOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './Connexion2.css';
+import HttpClient from '../services/HttpClient'
 
 const { Title, Paragraph } = Typography;
 
@@ -24,7 +25,7 @@ const Oubli2 = () => {
 
         setLoading(true);
         try {
-            await axios.post('http://localhost:4000/auth/password/reset', {
+            await HttpClient.post('/auth/password/reset', {
                 resetId: resetId,
                 resetToken: resetToken,
                 newPassword: values.password

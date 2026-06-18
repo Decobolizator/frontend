@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import instance from '../services/HttpClient';
 import './Parametres.css';
+import HttpClient from '../services/HttpClient'
 
 const { TabPane } = Tabs;
 
@@ -42,7 +43,7 @@ const MonCompteTab = () => {
         try {
             const tokenStocke = localStorage.getItem('token');
             await axios.post(
-                'http://localhost:4000/auth/verify-password',
+                '/api/auth/verify-password',
                 { password: oldPassword },
                 { headers: { Authorization: `Bearer ${tokenStocke}` } }
             );
@@ -68,7 +69,7 @@ const MonCompteTab = () => {
         try {
             const tokenStocke = localStorage.getItem('token');
             await axios.post(
-                'http://localhost:4000/auth/update-password',
+                '/api/auth/update-password',
                 { newPassword },
                 { headers: { Authorization: `Bearer ${tokenStocke}` } }
             );

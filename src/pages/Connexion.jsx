@@ -3,6 +3,7 @@ import { Form, Input, Button, Typography, message } from 'antd';
 import axios from 'axios';
 import triceratops from '../assets/triceratops.svg';
 import './Connexion.css';
+import HttpClient from '../services/HttpClient'
 
 const { Title, Paragraph } = Typography;
 
@@ -13,7 +14,7 @@ const Connexion = () => {
 
   const onFinish = async (values) => {
     try {
-      const response = await axios.post('http://localhost:4000/auth/login', {
+      const response = await HttpClient.post('/auth/login', {
         email: values.email,
         password: values.password
       });

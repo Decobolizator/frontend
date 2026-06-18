@@ -4,6 +4,7 @@ import { useNavigate, useLocation, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import './Connexion2.css';
+import HttpClient from '../services/HttpClient'
 
 const { Title, Paragraph } = Typography;
 
@@ -23,7 +24,7 @@ const Connexion2 = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:4000/auth/verify-2fa', {
+            const response = await HttpClient.post('/auth/verify-2fa', {
                 email: emailUser,
                 codeValidation: values.codeValidation
             });
