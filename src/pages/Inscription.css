@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Akatab:wght@400;700&family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Inter:wght@400;600;700&display=swap');
+
+
+/* Gestion mode clair */
+.content-wrapper.light-mode {
+  --login-bg: #EBFBFF;
+  --login-text: #000000;
+  --login-subtitle: rgba(0, 0, 0, 0.55);
+}
+
+/* Gestion mode sombre */
+.content-wrapper.dark-mode {
+  --login-bg: #252C2E;
+  --login-text: #D5D5D5;
+  --login-subtitle:rgba(218, 218, 218, 0.55);
+}
+
+
+/* contenu global page */
+.content-wrapper {
+  display: flex;
+  min-height: calc(100vh - 64px);
+  width: 100%;
+}
+.content-wrapper,
+.content-wrapper *,
+.left-section,
+.right-section,
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-form-item-label label { 
+/* gestion fluidité quand on change mode clair et sombre*/
+  transition: 
+    background-color 0.5s ease-in-out, 
+    color 0.5s ease-in-out, 
+    border-color 0.5s ease-in-out, 
+    box-shadow 0.5s ease-in-out !important;
+}
+
+.ant-input-affix-wrapper-focused, 
+.ant-input:focus {
+    transition: all 0.5s ease-in-out !important;
+}
+/* Coté gauche */
+.left-section { /* polygone */
+  flex: 0 0% 55%;
+  background-color: #008B8B;
+  padding: 6vw 4vw;
+  color: white;
+  clip-path: polygon(0 0, 100% 0, 45% 100%, 0% 100%);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.left-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.8rem, 4.5vw, 5rem);
+  letter-spacing: 0.04em;
+  font-style: normal;
+  color: #ffffff !important;
+  line-height: 1.1;
+}
+.left-text {
+  max-width: 75%;
+  font-family: 'Akatab', sans-serif;
+  font-size: clamp(0.85rem, 1.3vw, 1.4rem);
+  letter-spacing: -0.005em;
+  display: flex;
+  color: rgba(255, 255, 255, 0.61);
+}
+.left-subtext {
+  max-width: 65%;
+  font-family: 'Akatab', sans-serif;
+  font-size: clamp(0.8rem, 1.1vw, 1.2rem);
+  letter-spacing: 0.04em;
+  color: white;
+}
+.btn-ghost-custom { /* BOUTON connexion */
+  min-width: 100px;
+  height: auto;
+  border-radius: 8px;
+  font-family:  'Roboto', sans-serif;
+  font-size: clamp(0.75rem, 0.9vw, 1rem);
+  padding: clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 22px);
+  background: #EBFBFF;
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.043);
+  color: black !important;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+.btn-ghost-custom:hover,
+.btn-ghost-custom:focus {
+    background-color: white !important;
+    color: rgb(0, 0, 0) !important;
+    border-color: white !important;
+}
+.dino { /* triceratops */
+  position: absolute;
+  top: 55%;
+  left: 28.8%;
+  width: clamp(200px, 35%, 420px);
+  opacity: 0.5;
+  transform: rotate(-52deg) scaleZ(-1);
+  pointer-events: none;
+}
+
+
+/* Côté droit */
+.right-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--login-bg);
+  padding: 4vh 3vw;
+  z-index: 0;
+}
+
+/* texte en dessous du titre */
+.paragraph {
+  text-align: right;
+  font-size: clamp(0.8rem, 0.9vw, 1rem);
+  color: var(--login-subtitle);
+  margin-bottom: 50%;
+}
+
+.custom-form .ant-form-item-label > label {
+  font-size: clamp(13px, 1.1vw, 16px);
+  color: var(--login-subtitle)!important;
+}
+
+/* form */
+.form-container {
+  width: 90%;
+  max-width: 560px; 
+  margin: 0 auto;
+}
+.form-title {
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  color: var(--login-text) !important;
+}
+.custom-form .ant-form-item { /* Espacement entre les champs du form */
+  margin-bottom: 20px;
+}
+.custom-form .ant-form-item-label > label { /* Taille des labels du form */
+  font-size: clamp(12px, 1vw, 16px);
+  font-weight: 500;
+}
+.custom-form .ant-input, /* Taille et hauteur des inputs */
+.custom-form .ant-input-password,
+.custom-form .ant-input-affix-wrapper {
+  height: clamp(36px, 4vh, 48px);
+  font-size: clamp(12px, 1vw, 15px);
+  border-radius: 8px;
+  padding: 0 14px;
+}
+
+/* BOUTON SUBMIT */
+.btn-submit {
+  background-color: #008B8B !important;
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  width: 120px;
+  height: 36px;
+  margin-top: 8px;
+}
+
+/* Responsive tablettes et petits ordi (≤ 1024px) */
+@media (max-width: 1024px) {
+  .left-section {
+    flex: 0 0 50%;
+    clip-path: polygon(0 0, 100% 0, 40% 100%, 0% 100%);
+  }
+  .dino {
+    display: none;
+  }
+  .left-text {
+    max-width: 85%;
+  }
+}
+
+/* Responsive mobile portrait (≤ 768px) */
+/* Empilement vertical, suppression du dino */
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+  .left-section {
+    flex: 0 0 auto;
+    clip-path: none;
+    padding: 40px 24px 32px;
+  }
+  .left-text,
+  .left-subtext {
+    max-width: 100%;
+  }
+  .dino {
+    display: none;
+  }
+  .right-section {
+    flex: 1;
+    padding: 32px 24px 48px;
+  }
+  .form-container {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,181 @@
+.confirmation-page-wrapper.light-mode {
+  --c2-bg-page: transparent;
+  --c2-bg-box: #ffffff;
+  --c2-border-box: #e0e0e0;
+  --c2-title: #000000;
+  --c2-subtitle: #666666;
+  --c2-label: #333333;
+  --c2-input-bg: #ffffff;
+  --c2-input-border: #d9d9d9;
+  --c2-input-text: #000000;
+  
+  /* Toast */
+  --c2-toast-bg: #FFFFFF;
+  --c2-toast-title: rgb(0, 0, 0);
+  --c2-toast-sub: rgb(0, 0, 0);
+  --c2-toast-border: transparent;
+}
+
+.confirmation-page-wrapper.dark-mode {
+  --c2-bg-page: #252C2E;
+  --c2-bg-box: #000000;
+  --c2-border-box: #1f2426;
+  --c2-title: #D5D5D5;
+  --c2-subtitle: rgba(218, 218, 218, 0.55);
+  --c2-label: #D5D5D5;
+  --c2-input-bg: #1f2426;
+  --c2-input-border: #3a4447;
+  --c2-input-text: #D5D5D5;
+  
+  /* Toast */
+  --c2-toast-bg: #1f2426;
+  --c2-toast-title: #D5D5D5;
+  --c2-toast-sub: rgba(218, 218, 218, 0.65);
+  --c2-toast-border: #3a4447;
+}
+
+.confirmation-page-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--c2-bg-page);
+  transition: background-color 0.3s ease;
+}
+
+.confirmation-white-box {
+  background-color: var(--c2-bg-box);
+  width: 100%;
+  max-width: 900px;
+  min-height: 300px;
+  padding: 60px;
+  border-radius: 8px;
+  border: 1px solid var(--c2-border-box);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.confirmation-title {
+  font-weight: 700 !important;
+  font-size: 38px !important;
+  margin-bottom: 16px !important;
+  color: var(--c2-title) !important;
+}
+
+.confirmation-subtitle {
+  color: var(--c2-subtitle);
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 750px;
+  margin-bottom: 40px !important;
+}
+
+.confirmation-form {
+  max-width: 420px;
+  width: 100%;
+  margin-left: 150px;
+}
+
+.confirmation-form .ant-form-item-label > label {
+  font-size: 13px !important;
+  color: var(--c2-label) !important;
+  font-weight: 500;
+  padding-bottom: 6px !important;
+}
+
+.confirmation-input {
+  height: 36px !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--c2-input-border) !important;
+  background-color: var(--c2-input-bg) !important;
+  color: var(--c2-input-text) !important;
+  font-size: 14px !important;
+}
+
+.confirmation-input::placeholder {
+  color: #bfbfbf;
+}
+
+.btn-continuer {
+  background-color: #559696 !important;
+  border-color: #559696 !important;
+  color: #ffffff !important;
+  height: 36px !important;
+  padding: 0 24px !important;
+  border-radius: 4px !important;
+  font-size: 13px !important;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.btn-annuler {
+  color: #08979C !important;
+  border-color: #08979C !important;
+  background-color: var(--c2-bg-box) !important;
+  height: 36px !important;
+  padding: 0 24px !important;
+  border-radius: 4px !important;
+  font-size: 13px !important;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.btn-continuer:hover {
+  background-color: #447a7a !important;
+  border-color: #447a7a !important;
+}
+
+.custom-toast-right {
+  position: fixed !important;
+  top: 80px !important;
+  right: 0px !important;
+  left: auto !important;
+  width: 40% !important;
+}
+
+.custom-toast-right .ant-message-notice {
+  text-align: right !important;
+}
+
+.custom-toast-right .ant-message-notice-content {
+  background: var(--c2-toast-bg);
+  border: 1px solid var(--c2-toast-border) !important;
+  padding: 32px 200px 32px 32px !important;
+  border-radius: 2px !important;
+  text-align: left;
+  transition: background 0.3s ease;
+}
+
+.custom-toast-right .toast-title-text {
+  color: var(--c2-toast-title) !important;
+}
+
+.custom-toast-right .toast-sub-text {
+  color: var(--c2-toast-sub) !important;
+}
+
+.custom-toast-right .ant-message-custom-content {
+  display: flex !important;
+  align-items: flex-start !important;
+}
+
+.custom-toast-right .ant-message-custom-content .anticon {
+  font-size: 20px !important;
+  margin-right: 10px !important;
+  margin-top: 0px;
+}
+
+@media (max-width: 768px) {
+  .confirmation-white-box {
+    padding: 30px;
+  }
+  .confirmation-form {
+    margin-left: 0;
+    max-width: 100%;
+  }
+}

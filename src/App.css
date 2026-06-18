@@ -1,42 +1,180 @@
+:root {
+  --transition-speed: 0.5s ease-in-out;
+}
+
+.main-layout.light-mode {
+  /* Mode Clair (Défaut) */
+  --bg-header: #ffffff;
+  --bg-content: #EBFBFF;
+  --bg-footer: #ffffff;
+  --text-main: #000000;
+  --text-nav: #000000;
+  --footer-border: #d9d9d9;
+  --logo-filter: none;
+}
+
+.main-layout.dark-mode {
+  /* Mode Sombre */
+  --bg-header: #000000;
+  --bg-content: #252C2E;
+  --bg-footer: #000000;
+  --text-main: #ffffff;
+  --text-nav: #ffffff;
+  --footer-border: #636363;
+
+}
+
+/* GLOBAL */
+html,
+body,
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: 'Akatab', sans-serif;
 }
 
+body,
+body * {
+  transition: background-color var(--transition-speed),
+    background var(--transition-speed),
+    color var(--transition-speed),
+    border-color var(--transition-speed) !important;
+}
+
+/* LAYOUT */
+.main-layout {
+  min-height: 100vh;
+  width: 100%;
+  background: var(--bg-content);
+  transition: background var(--transition-speed);
+}
+
+/* HEADER */
+.header {
+  background: var(--bg-header) !important;
+  display: flex;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  transition: background var(--transition-speed), border-color var(--transition-speed);
+  border-bottom: 1px solid var(--footer-border);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Logo et nametag */
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  width: 65px !important;
+  height: auto !important;
+  filter: var(--logo-filter);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.nametag {
+  margin-right: 5%;
+  width: 400px;
+  filter: var(--logo-filter);
+}
+
+/* Barre de navigation */
+.nav-link {
+  color: var(--text-nav) !important;
+  padding: 10px 15px;
+  position: relative;
+  font-size: 19px;
+  transition: background-color var(--transition-speed);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 20px;
+  left: 50%;
+  background-color: #08979C;
+  transition: background-color var(--transition-speed);
+  transform: translateX(-50%);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #08979C !important;
+}
+
+.nav-link.active::after {
+  width: 80%;
+  background-color: #08979C;
+}
+
+/* Bouton mode claire/sombre */
+.custom-switch {
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 22px !important;
+  background: #BFBFBF !important;
+}
+
+.custom-switch.ant-switch-checked {
+  background: #08979C !important;
+}
+
+/* Bouton connexion */
+.btn-primary-custom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 25px;
+  background-color: #08979C !important;
+  border-radius: 8px;
+  font-family: 'Roboto', sans-serif;
+  color: #FFFFFF !important;
+  border: none;
+}
+
+/* CONTENT */
+.content {
+  width: 100%;
+  background-color: var(--bg-content);
+  transition: background-color var(--transition-speed);
+}
+
+/* FOOTER */
+.footer {
+  background-color: var(--bg-footer) !important;
+  padding: 30px 20px;
+  border-top: 1px solid var(--footer-border);
+  transition: background-color var(--transition-speed);
+}
+
+.footer-text {
+  color: var(--text-secondary);
+  opacity: 0.8;
+  justify-self: center;
+  text-align: center !important;
+
+
+}
+
+.footer .ant-typography {
+  color: var(--text-main) !important;
+  text-align: justify !important;
+}
+
+@media (max-width: 1000px) {
+  .nametag {
+    display: none;
   }
-  to {
-    transform: rotate(360deg);
+
+  .custom-switch {
+    display: none;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
