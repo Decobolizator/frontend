@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Button, Space } from 'antd';
 import { useNavigate, useOutletContext } from 'react-router-dom';
+import erreur403 from '../assets/erreur403.svg';
 
 import './Erreur403.css'
 
@@ -13,7 +14,7 @@ const Erreur403 = () => {
     return (
         <div className={`page-wrapper ${darkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className='erreur-wrapper'>
-                <img src="/src/assets/erreur403.svg" alt="Logo"/>
+                <img src={erreur403} alt="Logo"/>
 
                 <Title className="erreur-403-title">
                     403

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 const { Title, Paragraph } = Typography;
 import { useOutletContext } from 'react-router-dom';
+import triceratops from '../assets/triceratops.svg';
 import './Inscription.css'
 
 const Inscription = () => {
@@ -68,7 +69,7 @@ const Inscription = () => {
                 </div>
 
                 {/* Triceratops */}
-                <img src="/src/assets/triceratops.svg" alt="Dino" className='dino' />
+                <img src={triceratops} alt="Dino" className='dino' />
             </div>
 
             {/* Section droite (inscription) */}

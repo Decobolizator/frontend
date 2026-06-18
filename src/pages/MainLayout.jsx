@@ -6,6 +6,8 @@ const { Title, Text } = Typography;
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Avatar } from 'antd';
+import logo from '../assets/logo.svg';
+import nametag from '../assets/nametag.svg';
 import './MainLayout.css';
 
 const MainLayout = () => {
@@ -48,9 +50,9 @@ const MainLayout = () => {
             {/* Header */}
             <Header className="header">
                 <div className="header-left">
-                    <img src="/src/assets/logo.svg" className="logo" alt="Logo" />
+                    <img src={logo} className="logo" alt="Logo" />
                     <img
-                        src={"/src/assets/nametag.svg"}
+                        src={nametag}
                         alt="Name"
                         className="nametag"
                     />
@@ -121,8 +123,8 @@ const MainLayout = () => {
                     <Col xs={24} md={9}>
                         <Space direction="vertical" size={0} align="start" style={{ width: '100%' }}>
                             <div className='footer-logo'>
-                                <img src="/src/assets/logo.svg" alt="Logo" />
-                                <img src={"/src/assets/nametag.svg"} alt="Nametag" style={{ marginBottom: "4%" }} />
+                                <img src={logo} alt="Logo" />
+                                <img src={nametag} alt="Nametag" style={{ marginBottom: "4%" }} />
                             </div>
                             <Text type="secondary" className='footer-text' style={{ display: 'block', paddingLeft: "15%" }}>
                                 ScandCod est un site web permettant de traduire et de comprendre vos codes en langage Cobol.

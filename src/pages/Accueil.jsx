@@ -7,6 +7,7 @@ import { UploadOutlined, DownloadOutlined, ReloadOutlined, FolderOpenOutlined, F
 import { NavLink } from 'react-router-dom';
 const { Header, Content } = Layout;
 import { useOutletContext } from 'react-router-dom';
+import triceratops from '../assets/triceratops.svg';
 import './Accueil.css';
 
 const Accueil = () => {
@@ -41,7 +42,7 @@ const Accueil = () => {
 
                     {/* Le bleu foncé devant */}
                     <div className="accueil-curve-foncee">
-                        <img src="/src/assets/triceratops.svg" alt="Dino" className='accueil-dino' />
+                        <img src={triceratops} alt="Dino" className='accueil-dino' />
                     </div>
                 </div>
             </section>

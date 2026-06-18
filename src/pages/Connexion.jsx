@@ -1,6 +1,7 @@
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { Form, Input, Button, Typography, message } from 'antd';
 import axios from 'axios';
+import triceratops from '../assets/triceratops.svg';
 import './Connexion.css';
 
 const { Title, Paragraph } = Typography;
@@ -75,7 +76,7 @@ const Connexion = () => {
       <div className="design-section">
         <div className="curve-overlay"></div>
         <div className="main-curve-content">
-          <img src="/src/assets/triceratops.svg" alt="Dino" className='dino_co' />
+          <img src={triceratops} alt="Dino" className='dino_co' />
         </div>
       </div>
     </div>

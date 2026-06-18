@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography, Button, Space, message } from 'antd';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import deconnexion from '../assets/deconnexion.svg';
 import './Erreur403.css';
 
 const { Title, Paragraph } = Typography;
@@ -14,7 +15,7 @@ const Deconnexion = () => {
     return (
         <div className={`page-wrapper ${darkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className='erreur-wrapper'>
-                <img src="/src/assets/deconnexion.svg" alt="Logo" />
+                <img src={deconnexion} alt="Logo" />
 
                 <Title className="erreur-403-title">
                     Autorisation
