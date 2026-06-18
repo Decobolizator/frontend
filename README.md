@@ -53,7 +53,10 @@ frontend/
 │   │   ├── Inscription.jsx      # Page du formulaire d'incription
 │   │   ├── Inscription.css      # Style de la page du formulaire d'authentification
 │   │   ├── MainLayout.jsx       # Squelette global (header, footer, mode sombre global)
-│   │   ├── Parametres.css       # Page des paramètres (mon compte et historique)
+│   │   ├── MainLayout.css       # Style du squelette global
+│   │   ├── Oubli.jsx            # Page mot de passe oublié : insérer mail
+│   │   ├── Oubli2.jsx           # Page mot de passe oublié : réinitialise mdp
+│   │   ├── Parametres.jsx       # Page des paramètres (mon compte et historique)
 │   │   └── Parametres.css       # Style de la page des paramètres
 │   ├── services/                   
 │   │   ├── HttpClient.js        # Communication avec l'API Gateway
